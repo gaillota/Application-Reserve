@@ -19,7 +19,11 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "leafo/lessphp": "0.3.*@dev",
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "jms/security-extra-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "2.3.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
