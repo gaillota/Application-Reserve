@@ -1,4 +1,4 @@
-ferus_product:
+ferus_ProductBundle:
     resource: "@FerusProductBundle/Resources/config/routing.yml"
     prefix:   /products
 

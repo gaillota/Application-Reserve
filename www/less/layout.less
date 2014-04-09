@@ -1,0 +1,117 @@
+@import "colors";
+@import "mixins";
+
+@toolbar-height: 40px;
+
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Calibri, Arial, "sans-serif";
+    font-size: 18px;
+    color: #333333;
+}
+
+body{
+    padding-top: @toolbar-height;
+    background: @background;
+}
+
+.toolbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: @toolbar-height;
+
+    line-height: @toolbar-height;
+    text-align: center;
+
+    background: @gray;
+    border-bottom: solid 1px @dark;
+
+    .left, .right{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        color: @blue;
+        cursor: pointer;
+    }
+
+    .left{
+        left: 8px;
+    }
+
+    .right{
+        right: 8px;
+    }
+}
+
+@item-height: 43px;
+ul{
+    margin: 16px 0 0 0;
+    padding: 0;
+    list-style: none;
+
+    background: white;
+    border-top: solid 1px @light;
+
+    li{
+        display: block;
+        position: relative;
+        height: @item-height;
+        line-height: @item-height;
+        padding: 0 0 0 15px;
+        border-bottom: solid 1px @light;
+
+        a{
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
+
+            .transition(margin-left .4s);
+        }
+
+        .fa-chevron-right{
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -8px;
+            color: #cccccc;
+        }
+
+        @label-height: 22px;
+        .label{
+            position: absolute;
+            top: (@item-height - @label-height) / 2;
+            bottom: (@item-height - @label-height) / 2;
+            line-height: @label-height;
+            padding: 0 4px;
+            right: 30px;
+
+            border: solid 1px @light;
+            color: @light;
+            .border-radius(4px);
+        }
+
+        @remove-width: 40px;
+        .remove-icon{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -@remove-width - 10px;
+            color: red;
+            width: @remove-width;
+            text-align: center;
+
+            .transition(left .4s);
+        }
+
+        &.remove-active .remove-icon{
+            left: 0;
+
+            + a{
+                margin-left: @remove-width - 10px;
+            }
+        }
+    }
+}

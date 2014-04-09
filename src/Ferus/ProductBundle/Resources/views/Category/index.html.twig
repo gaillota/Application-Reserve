@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block toolbar %}
+    <a class="left">
+        <i class="fa fa-bars"></i>
+    </a>
+    <a class="right" data-toggle="remove">
+        Suppr
+    </a>
+    Catégories
+{% endblock %}
+
+{% block body %}
+    <form class="search-form">
+        <input type="text" placeholder="Nouveau">
+    </form>
+    <ul>
+        {% for category in categories %}
+            <li data-remove="lol">
+                <a>
+                    {{ category }}
+                    <span class="label">{{ category.products|length }}</span>
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

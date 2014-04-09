@@ -1,5 +1,31 @@
 {% extends '::base.html.twig' %}
 
+{% block toolbar %}
+    <a class="left">
+        <i class="fa fa-bars"></i>
+    </a>
+    <a class="right">
+        Modifier
+    </a>
+    Catégories
+{% endblock %}
+
 {% block body %}
-    hello
+    <form class="search-form">
+        <input type="text" placeholder="Nouveau">
+    </form>
+    <ul>
+        <li data-remove="lol">
+            <a>
+                Boissons
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a>
+                Outils
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
 {% endblock %}

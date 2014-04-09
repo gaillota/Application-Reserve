@@ -1,0 +1,3 @@
+ferus_categories:
+    pattern:  /
+    defaults: { _controller: FerusProductBundle:Category:index }

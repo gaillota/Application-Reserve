@@ -1,3 +1,3 @@
-ferus_products:
-    pattern:  /hello
-    defaults: { _controller: FerusProductBundle:Admin:index }
+ferus_ProductBundle_category:
+    resource: "@FerusProductBundle/Resources/config/routing/category.yml"
+    prefix:   /categories
