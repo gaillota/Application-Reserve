@@ -1,0 +1,3 @@
+ferus_products:
+    pattern:  /hello
+    defaults: { _controller: FerusProductBundle:Admin:index }
