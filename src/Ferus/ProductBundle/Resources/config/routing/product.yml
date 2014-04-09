@@ -1,0 +1,7 @@
+ferus_products:
+    pattern:  /
+    defaults: { _controller: FerusProductBundle:Product:index }
+
+ferus_products_new:
+    pattern:  /new
+    defaults: { _controller: FerusProductBundle:Product:new }

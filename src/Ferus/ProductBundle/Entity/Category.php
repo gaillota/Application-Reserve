@@ -5,12 +5,14 @@ namespace Ferus\ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use \Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Category
  *
  * @ORM\Table(name="ferus_category")
  * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Entity\CategoryRepository")
+ * @UniqueEntity("name")
  */
 class Category
 {
@@ -26,7 +28,7 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=40)
+     * @ORM\Column(name="name", type="string", length=40, unique=true)
      * @Assert\NotBlank()
      */
     private $name;
@@ -39,9 +41,10 @@ class Category
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name = null)
     {
         $this->products = new ArrayCollection;
+        $this->setName($name);
     }
 
 

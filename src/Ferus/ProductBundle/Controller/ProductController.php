@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * @var EntityManager
@@ -33,19 +33,19 @@ class CategoryController extends Controller
     public function indexAction()
     {
         return array(
-            'categories' => $this->em->getRepository('FerusProductBundle:Category')->findAll(),
+            'products' => $this->em->getRepository('FerusProductBundle:Product')->findAll(),
         );
     }
 
     /**
+     * @Template
      * @Secure(roles="ROLE_USER")
      */
     public function newAction()
     {
-        $category = new Category($this->request->query->get('name'));
-        $this->em->persist($category);
-        $this->em->flush();
 
-        return $this->redirect($this->generateUrl('ferus_categories'));
+        return array(
+
+        );
     }
 }
