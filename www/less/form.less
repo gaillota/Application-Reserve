@@ -1,6 +1,12 @@
 @import "colors";
+@import "mixins";
+
+form{
+    margin: 16px 0 0 0;
+}
 
 .search-form{
+    margin: 0;
     background: @darker;
 
     padding: 7px;
@@ -10,8 +16,7 @@
         height: 28px;
         display: block;
         padding: 0 10px;
-        box-sizing:border-box;
-        -moz-box-sizing:border-box;
+        .box-sizing();
 
         background: white;
         border: none;
@@ -22,4 +27,41 @@
         margin-top: 0;
         border-top-color: @dark;
     }
+}
+
+@input-height: 40px;
+input, select, select + label{
+    display: block;
+    width: 100%;
+    height: @input-height;
+    line-height: @input-height;
+    padding: 0 10px;
+
+    background: @gray;
+    font-size: 16px;
+    border: none;
+    border-bottom: solid 1px @dark;
+    border-top: solid 1px @dark;
+    .box-sizing();
+
+    .transition(background .4s);
+
+    &:focus{
+
+    }
+
+    & + input, & + select, & + select + label{
+        border-top: none;
+    }
+}
+
+select{
+    position: absolute;
+    opacity: 0;
+}
+
+.errors{
+    color: @darkAsFuck;
+    font-size: 14px;
+    margin: 10px 15px 25px 15px;
 }

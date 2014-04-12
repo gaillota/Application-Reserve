@@ -17,6 +17,21 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    <div class="side-menu">
+        <div class="drop"></div>
+        <ul>
+            <li>
+                <a href="{{ path('ferus_products') }}">
+                    Produits
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('ferus_categories') }}">
+                    Catégories
+                </a>
+            </li>
+        </ul>
+    </div>
         <div class="toolbar">
             {% block toolbar %}{% endblock %}
         </div>
@@ -25,6 +40,8 @@
             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
             {% javascripts
             'js/remove.js'
+            'js/form.js'
+            'js/side-menu.js'
             output='js/script.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
