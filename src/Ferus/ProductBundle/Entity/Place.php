@@ -5,6 +5,7 @@ namespace Ferus\ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Place
@@ -33,11 +34,17 @@ class Place
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="Stock", mappedBy="place")
+     */
+    protected $stocks;
+
+    /**
      * Constructor
      */
     public function __construct($name = null)
     {
         $this->setName($name);
+        $this->stocks = new ArrayCollection;
     }
 
 
@@ -78,5 +85,38 @@ class Place
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add stock
+     *
+     * @param Stock $stock
+     * @return Place
+     */
+    public function addStock(Stock $stock)
+    {
+        $this->stocks[] = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Remove stock
+     *
+     * @param Stock $stock
+     */
+    public function removeStock(Stock $stock)
+    {
+        $this->stocks->removeElement($stock);
+    }
+
+    /**
+     * Get stocks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStocks()
+    {
+        return $this->stocks;
     }
 }

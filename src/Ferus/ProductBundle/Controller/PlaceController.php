@@ -57,7 +57,7 @@ class PlaceController extends Controller
     {
         return array(
             'place' => $place,
-            //'products' => $this->em->getRepository('FerusProductBundle:Product')->findByCategory($place),
+            'stocks' => $this->em->getRepository('FerusProductBundle:Stock')->findByPlace($place),
         );
     }
 }

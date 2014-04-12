@@ -20,4 +20,17 @@
             {{ (product.price * (1 + product.taxes / 100))|number_format(2, ',', ' ') }} € / {{ product.unit }} (TTC)
         </li>
     </ul>
+
+    <h2>Stock</h2>
+    <ul>
+        {% for stock in stocks %}
+            <li>
+                <a href="{{ path('ferus_places_show', {id:stock.place.id}) }}">
+                    {{ stock.place }}
+                    <span class="label">{{ stock }}</span>
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

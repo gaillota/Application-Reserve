@@ -4,6 +4,7 @@ namespace Ferus\ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product
@@ -59,6 +60,17 @@ class Product
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category")
      */
     protected $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Stock", mappedBy="product")
+     */
+    protected $stocks;
+
+
+    public function __construct()
+    {
+        $this->stocks = new ArrayCollection;
+    }
 
 
     public function __toString()
@@ -192,5 +204,38 @@ class Product
     public function getUnit()
     {
         return $this->unit;
+    }
+
+    /**
+     * Add stocks
+     *
+     * @param Stock $stock
+     * @return Product
+     */
+    public function addStock(Stock $stock)
+    {
+        $this->stocks[] = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Remove stock
+     *
+     * @param Stock $stock
+     */
+    public function removeStock(Stock $stock)
+    {
+        $this->stocks->removeElement($stock);
+    }
+
+    /**
+     * Get stocks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStocks()
+    {
+        return $this->stocks;
     }
 }

@@ -5,20 +5,22 @@
         <i class="fa fa-chevron-left"></i>
     </a>
     <a class="right" data-toggle="remove">
-        Edit
+        Editer
     </a>
     {{ place }}
 {% endblock %}
 
 {% block body %}
+    <h2>Stock</h2>
     <ul>
-        {#{% for product in products %}#}
-            {#<li data-remove="lol">#}
-                {#<a href="{{ path("ferus_products_show", {id:product.id}) }}">#}
-                    {#{{ product }}#}
-                    {#<i class="fa fa-chevron-right"></i>#}
-                {#</a>#}
-            {#</li>#}
-        {#{% endfor %}#}
+        {% for stock in stocks %}
+            <li>
+                <a href="{{ path('ferus_products_show', {id:stock.product.id}) }}">
+                    {{ stock.product }}
+                    <span class="label">{{ stock }}</span>
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </li>
+        {% endfor %}
     </ul>
 {% endblock %}
