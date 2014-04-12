@@ -19,6 +19,7 @@
             <li data-remove="lol">
                 <a href="{{ path('ferus_products_show', {id:product.id}) }}">
                     {{ product }}
+                    <span class="label">{{ stocks[product.id] }}</span>
                     <i class="fa fa-chevron-right"></i>
                 </a>
             </li>

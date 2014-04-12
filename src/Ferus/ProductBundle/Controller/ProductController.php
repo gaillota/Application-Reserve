@@ -36,6 +36,7 @@ class ProductController extends Controller
     {
         return array(
             'products' => $this->em->getRepository('FerusProductBundle:Product')->findBy(array(), array('name' => 'asc')),
+            'stocks' => $this->em->getRepository('FerusProductBundle:Stock')->findStocks(),
         );
     }
 

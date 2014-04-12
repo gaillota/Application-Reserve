@@ -2,6 +2,10 @@ ferus_ProductBundle_category:
     resource: "@FerusProductBundle/Resources/config/routing/category.yml"
     prefix:   /categories
 
+ferus_ProductBundle_stock:
+    resource: "@FerusProductBundle/Resources/config/routing/stock.yml"
+    prefix:   /stocks
+
 ferus_ProductBundle_place:
     resource: "@FerusProductBundle/Resources/config/routing/place.yml"
     prefix:   /places

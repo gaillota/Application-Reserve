@@ -15,14 +15,14 @@ class Stock
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="stocks")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="stocks", fetch="EAGER")
      * @ORM\JoinColumn(name="id_product", referencedColumnName="id_product")
      */
     protected $product;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Place", inversedBy="stocks")
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="stocks", fetch="EAGER")
      * @ORM\JoinColumn(name="id_place", referencedColumnName="id_place")
      */
     protected $place;
@@ -60,6 +60,14 @@ class Stock
     public function getNumber()
     {
         return $this->number;
+    }
+
+    /**
+     * @param integer $number
+     */
+    public function add($number)
+    {
+        $this->number += $number;
     }
 
     /**

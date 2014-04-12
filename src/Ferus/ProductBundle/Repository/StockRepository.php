@@ -2,7 +2,10 @@
 
 namespace Ferus\ProductBundle\Repository;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Ferus\ProductBundle\Entity\Place;
 
 /**
  * StockRepository
@@ -12,4 +15,37 @@ use Doctrine\ORM\EntityRepository;
  */
 class StockRepository extends EntityRepository
 {
+    /**
+     * Returns a list of products currently available in a particular place. Products are ordered by category and by name
+     * @param Place $place
+     * @return Collection
+     */
+    public function findByPlace(Place $place)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.product', 'p')
+            ->leftJoin('p.category', 'c')
+            ->addSelect('p, c')
+            ->where('s.place = :place')
+            ->setParameter('place', $place)
+            ->orderBy('c.name, p.name')
+            ->getQuery()->getResult();
+    }
+
+    /**
+     * Returns an array where the keys are the products id and the values the total amount of product in the school (sum of every places)
+     * @return array
+     */
+    public function findStocks()
+    {
+        $data = $this->createQueryBuilder('s')
+            ->select('IDENTITY(s.product) product_id, SUM(s.number) number')
+            ->groupBy('s.product')
+            ->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        foreach($data as $product)
+            $products[$product['product_id']] = $product['number'];
+
+        return $products;
+    }
 }

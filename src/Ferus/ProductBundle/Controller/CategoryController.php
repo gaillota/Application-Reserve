@@ -58,6 +58,7 @@ class CategoryController extends Controller
         return array(
             'category' => $category,
             'products' => $this->em->getRepository('FerusProductBundle:Product')->findByCategory($category),
+            'stocks' => $this->em->getRepository('FerusProductBundle:Stock')->findStocks(),
         );
     }
 }

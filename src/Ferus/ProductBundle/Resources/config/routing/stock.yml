@@ -1,0 +1,3 @@
+ferus_stock_add:
+    pattern:  /add
+    defaults: { _controller: FerusProductBundle:Stock:add }

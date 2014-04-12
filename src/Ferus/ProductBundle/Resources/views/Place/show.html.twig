@@ -11,9 +11,15 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Stock</h2>
-    <ul>
+    <ul style="margin: 0">
+        {% set category = "" %}
         {% for stock in stocks %}
+            {% if category != stock.product.category %}
+                {% set category = stock.product.category %}
+                <li class="separator">
+                    {{ category }}
+                </li>
+            {% endif %}
             <li>
                 <a href="{{ path('ferus_products_show', {id:stock.product.id}) }}">
                     {{ stock.product }}
