@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Category
  *
- * @ORM\Table(name="ferus_category")
+ * @ORM\Table(name="ferus_log_category")
  * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Repository\CategoryRepository")
  * @UniqueEntity("name")
  */
