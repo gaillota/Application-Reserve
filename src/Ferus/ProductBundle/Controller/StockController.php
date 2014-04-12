@@ -34,6 +34,23 @@ class StockController extends Controller
     public function addAction()
     {
         $stock = new Stock;
+
+        // Set product if defined
+        if($this->request->query->has('product'))
+            $stock->setProduct(
+                $this->em->getRepository('FerusProductBundle:Product')->findOneById(
+                    $this->request->query->get('product', null)
+                )
+            );
+
+        // Set place if defined
+        if($this->request->query->has('place'))
+            $stock->setPlace(
+                $this->em->getRepository('FerusProductBundle:Place')->findOneById(
+                    $this->request->query->get('place', null)
+                )
+            );
+
         $form = $this->createForm(new StockType, $stock);
 
         if($this->request->isMethod('post')){
