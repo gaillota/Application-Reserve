@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block toolbar %}
+    <a class="left" href="{{ path('ferus_products_show', {id:product.id}) }}">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+
+    {{ product }}
+{% endblock %}
+
+{% block body %}
+    {% include 'FerusProductBundle:Product:form.html.twig' %}
+{% endblock %}

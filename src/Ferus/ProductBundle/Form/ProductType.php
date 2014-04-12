@@ -20,16 +20,18 @@ class ProductType extends AbstractType
                 'empty_value' => false,
             ))
             ->add('name', 'text', array(
-                'label' => 'Nom'
+                'label' => 'Nom',
             ))
             ->add('unit', 'text', array(
                 'label' => 'Unité de mesure'
             ))
-            ->add('price', 'text', array(
-                'label' => 'Prix HT'
+            ->add('price', 'number', array(
+                'label' => 'Prix HT',
+                'precision' => 2,
             ))
-            ->add('taxes', 'text', array(
-                'label' => '% TVA'
+            ->add('taxes', 'number', array(
+                'label' => '% TVA',
+                'precision' => 2,
             ))
         ;
     }

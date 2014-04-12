@@ -4,8 +4,20 @@
     <a class="left" href="{{ path('ferus_categories_show', {id:product.category.id}) }}">
         <i class="fa fa-chevron-left"></i>
     </a>
+    <a class="right" href="{{ path('ferus_products_edit', {id:product.id}) }}">
+        Editer
+    </a>
     {{ product }}
 {% endblock %}
 
 {% block body %}
+    <h2>Infos</h2>
+    <ul>
+        <li>
+            {{ product.price|number_format(2, ',', ' ') }} € / {{ product.unit }} (HT)
+        </li>
+        <li>
+            {{ (product.price * (1 + product.taxes / 100))|number_format(2, ',', ' ') }} € / {{ product.unit }} (TTC)
+        </li>
+    </ul>
 {% endblock %}

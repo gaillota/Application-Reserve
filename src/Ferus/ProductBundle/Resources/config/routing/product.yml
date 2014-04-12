@@ -11,3 +11,9 @@ ferus_products_show:
     defaults: { _controller: FerusProductBundle:Product:show }
     requirements:
         id: \d+
+
+ferus_products_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: FerusProductBundle:Product:edit }
+    requirements:
+        id: \d+

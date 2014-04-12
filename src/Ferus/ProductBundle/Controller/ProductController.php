@@ -87,4 +87,29 @@ class ProductController extends Controller
             'product' => $product,
         );
     }
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_USER")
+     */
+    public function editAction(Product $product)
+    {
+        $form = $this->createForm(new ProductType, $product);
+
+        if($this->request->isMethod('post')){
+            $form->handleRequest($this->request);
+
+            if($form->isValid()){
+                $this->em->persist($product);
+                $this->em->flush();
+
+                return $this->redirect($this->generateUrl('ferus_products_show', array('id' => $product->getId())));
+            }
+        }
+
+        return array(
+            'product' => $product,
+            'form' => $form->createView(),
+        );
+    }
 }
