@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Category
  *
  * @ORM\Table(name="ferus_category")
- * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Repository\CategoryRepository")
  * @UniqueEntity("name")
  */
 class Category

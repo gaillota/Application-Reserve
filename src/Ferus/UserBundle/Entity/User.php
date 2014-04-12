@@ -9,7 +9,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * User
  *
  * @ORM\Table(name="ferus_user")
- * @ORM\Entity(repositoryClass="Ferus\UserBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Ferus\UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ferus\ProductBundle\Entity;
+namespace Ferus\ProductBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
