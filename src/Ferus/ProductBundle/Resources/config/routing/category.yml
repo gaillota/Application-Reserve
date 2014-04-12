@@ -5,3 +5,9 @@ ferus_categories:
 ferus_categories_new:
     pattern:  /new
     defaults: { _controller: FerusProductBundle:Category:new }
+
+ferus_categories_show:
+    pattern:  /{id}
+    defaults: { _controller: FerusProductBundle:Category:show }
+    requirements:
+        id: \d+

@@ -47,10 +47,24 @@ class Product
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=40)
+     * @Assert\NotBlank()
+     */
+    private $unit;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category")
      */
     protected $category;
+
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
 
     /**
@@ -83,6 +97,7 @@ class Product
      */
     public function getPrice()
     {
+        if($this->price == null) return null;
         return $this->price / 100;
     }
 
@@ -106,6 +121,7 @@ class Product
      */
     public function getTaxes()
     {
+        if($this->taxes == null) return null;
         return $this->taxes / 100;
     }
 
@@ -153,5 +169,28 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return Product
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }

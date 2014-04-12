@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block toolbar %}
-    <a class="left">
+    <a class="left" data-toggle="side-menu">
         <i class="fa fa-bars"></i>
     </a>
     <a class="right" data-toggle="remove">
@@ -17,7 +17,7 @@
     <ul>
         {% for category in categories %}
             <li data-remove="lol">
-                <a>
+                <a href="{{ path('ferus_categories_show', {id: category.id}) }}">
                     {{ category }}
                     <span class="label">{{ category.products|length }}</span>
                     <i class="fa fa-chevron-right"></i>

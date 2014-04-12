@@ -48,4 +48,16 @@ class CategoryController extends Controller
 
         return $this->redirect($this->generateUrl('ferus_categories'));
     }
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_USER")
+     */
+    public function showAction(Category $category)
+    {
+        return array(
+            'category' => $category,
+            'products' => $this->em->getRepository('FerusProductBundle:Product')->findByCategory($category),
+        );
+    }
 }

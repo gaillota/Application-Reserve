@@ -5,3 +5,9 @@ ferus_products:
 ferus_products_new:
     pattern:  /new
     defaults: { _controller: FerusProductBundle:Product:new }
+
+ferus_products_show:
+    pattern:  /{id}
+    defaults: { _controller: FerusProductBundle:Product:show }
+    requirements:
+        id: \d+

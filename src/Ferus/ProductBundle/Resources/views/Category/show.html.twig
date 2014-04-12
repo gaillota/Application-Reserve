@@ -1,23 +1,24 @@
 {% extends '::base.html.twig' %}
 
 {% block toolbar %}
-    <a class="left">
-        <i class="fa fa-bars"></i>
+    <a class="left" href="{{ path('ferus_categories') }}">
+        <i class="fa fa-chevron-left"></i>
     </a>
     <a class="right" data-toggle="remove">
-        Suppr
+        Edit
     </a>
-    Produits
+    {{ category }}
 {% endblock %}
 
 {% block body %}
     <form class="search-form" action="{{ path('ferus_products_new') }}" method="get">
-        <input type="text" placeholder="Nouveau" name="name">
+        <input type="hidden" name="category_id" value="{{ category.id }}">
+        <input type="text" placeholder="Nouveau produit" name="name">
     </form>
     <ul>
         {% for product in products %}
             <li data-remove="lol">
-                <a href="{{ path('ferus_products_show', {id:product.id}) }}">
+                <a href="{{ path("ferus_products_show", {id:product.id}) }}">
                     {{ product }}
                     <i class="fa fa-chevron-right"></i>
                 </a>
