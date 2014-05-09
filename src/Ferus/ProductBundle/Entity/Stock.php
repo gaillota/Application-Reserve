@@ -71,6 +71,14 @@ class Stock
     }
 
     /**
+     * @param integer $number
+     */
+    public function sub($number)
+    {
+        $this->number -= $number;
+    }
+
+    /**
      * Set product
      *
      * @param Product $product

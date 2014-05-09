@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class StockType extends AbstractType
+class StockMoveType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,15 +15,19 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('from', 'entity', array(
+                'class' => 'FerusProductBundle:Place',
+                'empty_value' => '- Source -',
+            ))
+            ->add('to', 'entity', array(
+                'class' => 'FerusProductBundle:Place',
+                'empty_value' => '- Destination -',
+            ))
             ->add('product', 'entity', array(
                 'class' => 'FerusProductBundle:Product',
                 'empty_value' => '- Produit -',
             ))
-            ->add('place', 'entity', array(
-                'class' => 'FerusProductBundle:Place',
-                'empty_value' => '- Lieux -',
-            ))
-            ->add('number', 'integer', array(
+            ->add('quantity', 'integer', array(
                 'label' => 'Quantité',
             ))
         ;
@@ -35,7 +39,7 @@ class StockType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ferus\ProductBundle\Entity\Stock'
+            'data_class' => 'Ferus\ProductBundle\Model\StockMove'
         ));
     }
 

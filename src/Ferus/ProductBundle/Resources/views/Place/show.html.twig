@@ -29,5 +29,26 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ path('ferus_stock_add', {place:place.id}) }}">Ajouter une quantité</a>
+
+    <h2>Action</h2>
+    <ul>
+        <li>
+            <a href="{{ path('ferus_stock_add', {place:place.id}) }}">
+                Ajouter des produits
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('ferus_stock_move', {from:place.id}) }}">
+                Déplacer des produits
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('ferus_stock_remove', {place:place.id}) }}">
+                Enlever des produits
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
 {% endblock %}
