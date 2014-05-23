@@ -1,0 +1,50 @@
+html, body{
+margin:0;
+padding:0;
+}
+body{
+width:300px;
+margin:0 auto;
+padding-top:50px;
+text-align:center;
+background:url('http://www.tentelemed.com/wp-content/uploads/2013/03/Blurry-Blue-Background-IV.jpg') no-repeat center fixed;
+background-size:cover;
+font-family:"Trebuchet MS", Gothic, sans-serif;
+font-size:13px;
+}
+div:first-child
+{
+display:none;
+}
+form{
+background-color:rgba(255,255,255,0.4);
+border-radius:10px;
+margin-top:30px;
+padding:20px 0;
+}
+form input[type=text],form input[type=password]{
+display:block;
+width:150px;
+margin:0 auto;
+text-align:center;
+border-radius:7px;
+border:1px solid rgb(90,94,207);
+padding:4px 2px;
+margin-top:6px;
+margin-bottom:10px;
+font-family:"Trebuchet MS", Gothic, sans-serif;
+font-size:12px;
+}
+form input[type=submit]
+{
+margin:0 auto;
+display:block;
+border:0;
+border-radius:7px;
+padding:2px 12px;
+background-color:rgb(90,137,255);
+margin-top:12px;
+}
+form input[type=text]:focus,form input[type=password]:focus{
+background-color:rgb(244,216,157);
+}
