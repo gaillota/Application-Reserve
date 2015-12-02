@@ -1,4 +1,2 @@
-App Réserve
-========================
-
-Cette app, plutot #okalme, vas claquer du slip.
+# Application-Reserve
+[Symfony2] Logistic management application for the ESIEE Paris SU
