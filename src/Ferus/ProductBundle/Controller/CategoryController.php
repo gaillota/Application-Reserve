@@ -3,6 +3,8 @@
 namespace Ferus\ProductBundle\Controller;
 
 use Ferus\ProductBundle\Entity\Category;
+use Ferus\ProductBundle\Entity\Historical;
+use Ferus\ProductBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
@@ -22,43 +24,106 @@ class CategoryController extends Controller
     private $request;
 
     /**
-     * @var Paginator
-     */
-    private $paginator;
-
-    /**
+     * @return array
      * @Template
-     * @Secure(roles="ROLE_USER")
      */
     public function indexAction()
     {
         return array(
-            'categories' => $this->em->getRepository('FerusProductBundle:Category')->findAll(),
+            'listCategories' => $this->em->getRepository('FerusProductBundle:Category')->findBy(array(), array(
+                'id' => 'ASC'
+            )),
         );
     }
 
     /**
-     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction()
     {
-        $category = new Category($this->request->query->get('name'));
-        $this->em->persist($category);
-        $this->em->flush();
+        $categoryName = $this->request->query->get('name', null);
+        $route = $this->request->query->get('route', null);
 
-        return $this->redirect($this->generateUrl('ferus_categories'));
+        if (null !== $categoryName && !empty($categoryName)) {
+            $category = new Category($categoryName);
+            $this->em->persist($category);
+
+            $historical = new Historical();
+            $historical->setAuthor($this->getUser());
+            $historical->setEntity('Categorie');
+            $historical->setAction('Création de "'.$category->getName().'".');
+            $this->em->persist($historical);
+
+            $this->em->flush();
+        }
+
+        if (null != $route && $this->container->get('router')->getRouteCollection->get($route)) {
+            return $this->redirectToRoute($route);
+        }
+
+        return $this->redirectToRoute('ferus_category');
     }
 
     /**
+     * @param Category $category
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Template
-     * @Secure(roles="ROLE_USER")
      */
-    public function showAction(Category $category)
+    public function editAction(Category $category)
     {
+        $form = $this->createForm(new CategoryType, $category);
+
+        $form->handleRequest($this->request);
+
+        if ($form->isValid()) {
+            $this->em->persist($category);
+
+            $historical = new Historical();
+            $historical->setAuthor($this->getUser());
+            $historical->setEntity('Catégorie');
+            $historical->setAction('Modification de "'.$category->getName().'".');
+            $this->em->persist($historical);
+
+            $this->em->flush();
+
+            return $this->redirectToRoute('ferus_category');
+        }
+
         return array(
+            'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @param Category $category
+     * @return array
+     * @Template
+     */
+    public function removeAction(Category $category)
+    {
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($this->request);
+
+        if ($form->isValid()) {
+            $this->em->remove($category);
+
+            $historical = new Historical();
+            $historical->setAuthor($this->getUser());
+            $historical->setEntity('Catégorie');
+            $historical->setAction('Suppression de "'.$category->getName().'".');
+            $this->em->persist($historical);
+
+            $this->em->flush();
+
+            $this->addFlash('success', 'Catégorie supprimée avec succès.');
+
+            return $this->redirectToRoute('ferus_category');
+        }
+
+        return array(
+            'form' => $form->createView(),
             'category' => $category,
-            'products' => $this->em->getRepository('FerusProductBundle:Product')->findByCategory($category),
-            'stocks' => $this->em->getRepository('FerusProductBundle:Stock')->findStocks(),
         );
     }
 }

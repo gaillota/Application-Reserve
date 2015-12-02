@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><i class="fa fa-plus-circle"></i> Retour de Métro{% if previs is not null %} <small>{{ previs.name }}</small>{% endif %}</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            {{ form_start(form, { 'attr': { 'id': 'ferus_productbundle_list_product_add_form'}}) }}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-download"></i> Enregistrement des courses
+                </div>
+                <div class="panel-body">
+                    Cette page sert uniquement à mettre à jour la réserve après des courses à Métro. <br/><br/>
+                    <i class="fa fa-exclamation-triangle"></i> Vous ne pouvez ajouter uniquement des produits qui existent <strong><u>déjà</u></strong> dans la réserve. Pour ajouter un ou plusieurs <strong><u>nouveaux</u></strong> produits,
+                    <a target="_blank" href="{{ path('ferus_product_new') }}">cliquer ici</a>.
+                </div>
+                <table class="table table-hover products">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Quantité</th>
+                        <th></th>
+                    </tr>
+                    {% if previs is not null %}
+                        {% for product in previs.previsProducts %}
+                            {% set toBuy = product.quantity - product.product.quantity %}
+                            {% if toBuy > 0 %}
+                                <tr>
+                                    <td class="text-center" style="vertical-align: middle;">{{ loop.index }}</td>
+                                    <td>
+                                        <select class="form-control" name="{{ form.list_products.vars.prototype.product.vars.full_name|replace({'__name__': loop.index0}) }}" id="{{ form.list_products.vars.prototype.product.vars.id|replace({'__name__': loop.index0}) }}">
+                                            {% for p in listProducts %}
+                                                <option value="{{ p.id }}"{% if p.id == product.product.id %} selected{% endif %}>{{ p.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" name="{{ form.list_products.vars.prototype.quantity.vars.full_name|replace({'__name__': loop.index0}) }}" id="{{ form.list_products.vars.prototype.quantity.vars.id|replace({'__name__': loop.index0}) }}" required="required" value="{{ toBuy }}"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" data-remove-widget>
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for product in form.list_products %}
+                            <tr>
+                                <td class="text-center" style="vertical-align: middle;">{{ loop.index }}</td>
+                                <td>
+                                    {% form_theme product.product 'bootstrap_3_layout.html.twig' %}
+                                    {{ form_widget(product.product) }}
+                                </td>
+                                <td>
+                                    {% form_theme product.quantity 'bootstrap_3_layout.html.twig' %}
+                                    {{ form_widget(product.quantity) }}
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger" data-remove-widget>
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+            <button type="button" class="btn btn-success pull-right" data-prototype="{{ form_widget(form.list_products.vars.prototype)|e }}">
+                <i class="fa fa-plus"></i>
+            </button>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                {% form_theme form.save 'bootstrap_3_layout.html.twig' %}
+                {{ form_widget(form.save) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {#{{ dump(form) }}#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form/list_products.js') }}"></script>
+{% endblock %}

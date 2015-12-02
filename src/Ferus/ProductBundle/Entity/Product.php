@@ -9,7 +9,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
 /**
  * Product
  *
- * @ORM\Table(name="ferus_log_product")
+ * @ORM\Table(name="ferus_reserve_product")
  * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Repository\ProductRepository")
  */
 class Product
@@ -17,7 +17,7 @@ class Product
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_product", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -56,20 +56,23 @@ class Product
     private $unit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category")
+     * @var integer
+     *
+     * @ORM\Column(name="quantity", type="integer")
+     * @Assert\Type(type="integer", message ="La valeur {{ value }} n'est pas un entier valide.")
      */
-    protected $category;
+    private $quantity;
 
     /**
-     * @ORM\OneToMany(targetEntity="Stock", mappedBy="product")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    protected $stocks;
+    protected $category;
 
 
     public function __construct()
     {
-        $this->stocks = new ArrayCollection;
+        $this->setQuantity(0);
     }
 
 
@@ -207,35 +210,32 @@ class Product
     }
 
     /**
-     * Add stocks
+     * Get quantity
      *
-     * @param Stock $stock
-     * @return Product
+     * @return int
      */
-    public function addStock(Stock $stock)
+    public function getQuantity()
     {
-        $this->stocks[] = $stock;
-
-        return $this;
+        return $this->quantity;
     }
 
     /**
-     * Remove stock
+     * Set quantity
      *
-     * @param Stock $stock
+     * @param int $quantity
      */
-    public function removeStock(Stock $stock)
+    public function setQuantity($quantity)
     {
-        $this->stocks->removeElement($stock);
+        $this->quantity = $quantity;
     }
 
     /**
-     * Get stocks
+     * Add quantity
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param $quantity
      */
-    public function getStocks()
+    public function addQuantity($quantity)
     {
-        return $this->stocks;
+        $this->quantity = $this->quantity + $quantity;
     }
 }

@@ -1,0 +1,110 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><i class="fa fa-list-alt"></i> {{ previs.name }}</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 div-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+            <a class="btn btn-default btn-xs" href="{{ path('ferus_previs') }}" style="margin-bottom: 10px;">
+                <i class="fa fa-arrow-left"></i> Retour aux prévis</a>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Informations prévis
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <u>Nombre de produits</u> : <strong>{{ previs.previsProducts|length }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                {% set totalHT = 0 %}
+                                {% for previs_product in previs.previsProducts %}
+                                    {% set totalHT = totalHT + previs_product.product.price * previs_product.quantity %}
+                                {% endfor %}
+                                <u>Total HT</u> : <strong>{{ totalHT|round('2') }} €</strong>
+                            </div>
+                            <div class="col-md-4">
+                                {% set totalTTC = 0 %}
+                                {% for previs_product in previs.previsProducts %}
+                                    {% set price = previs_product.product.price %}
+                                    {% set tax = previs_product.product.taxes %}
+                                    {% set quantity = previs_product.quantity %}
+                                    {% set totalTTC = totalTTC + (price * tax / 100 + price) * quantity %}
+                                {% endfor %}
+                                <u>Total TTC</u> : <strong>{{ totalTTC|round('2') }} €</strong>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            {% if previs.event is null %}
+                                <div class="col-xs-12 text-center">
+                                    Aucun événement associé
+                                </div>
+                            {% else %}
+                                <div class="col-xs-6 text-center">
+                                    <u>Événement</u> : {{ previs.event.name }}
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <u>Date</u> : {{ previs.event.date|date("d/m/Y \\à H:i") }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-warning btn-xs" href="{{ path('ferus_previs_edit', {'id': previs.id}) }}">
+                        <i class="fa fa-edit"></i> Modifier
+                    </a>
+                    <a class="btn btn-danger btn-xs" href="{{ path('ferus_previs_remove', {'id': previs.id}) }}">
+                        <i class="fa fa-remove"></i> Supprimer
+                    </a>
+                    <a class="btn btn-success btn-xs pull-right" href="{{ path('ferus_previs_calcul', { 'id': previs.id }) }}">
+                        Liste des courses <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Total HT</th>
+                        <th>TVA</th>
+                        <th>Total TTC</th>
+                    </tr>
+                    {% for previs_product in previs.previsProducts %}
+                        {% set price = previs_product.product.price %}
+                        {% set tax = previs_product.product.taxes %}
+                        {% set quantity = previs_product.quantity %}
+                        <tr>
+                            <td>{{ previs_product.product.name }}</td>
+                            <td>{{ quantity }}</td>
+                            <td>{{ price }} €</td>
+                            <td>{{ quantity * price }} €</td>
+                            <td>{{ tax }} %</td>
+                            <td>{{ quantity * (price * tax / 100 + price) }}
+                                €
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">Il n'y a aucun produit dans ce prévis et ce n'est pas normal sale chien.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

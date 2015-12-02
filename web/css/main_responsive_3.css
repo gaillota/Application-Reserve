@@ -1,0 +1,15 @@
+@media (min-width: 1200px) {
+  .navbar > .container {
+    width: 1000px;
+  }
+}
+@media (max-width: 767px) {
+  .products {
+    padding: 0;
+  }
+  .icon {
+    border-radius: 100px;
+    width: 200px;
+    display: inline-block;
+  }
+}

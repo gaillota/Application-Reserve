@@ -1,6 +1,15 @@
-ferus_ProductBundle:
+home:
+    pattern: /
+    defaults:
+        _controller: FerusProductBundle:Home:index
+
+ferus_product_bundle:
     resource: "@FerusProductBundle/Resources/config/routing.yml"
-    prefix:   /products
+    prefix:   /
+
+ferus_user_bundle:
+    resource: "@FerusUserBundle/Resources/config/routing.yml"
+    prefix: /
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -20,10 +29,3 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
-
-accueil:
-    pattern: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /products
-        permanent: false

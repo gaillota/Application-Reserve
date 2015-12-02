@@ -1,0 +1,46 @@
+<ul class="products_list">
+	{% if search is not null %}
+		{% set n = listProducts|length %}
+		<li class="text-center">
+			{{ n }} produit{% if n > 1 %}s{% endif %} correspond{% if n > 1 %}ent{% endif %} à la recherche <em>{{ search }}</em>.
+		</li>
+		{% for product in listProducts %}
+			{% if loop.index == 1 %}
+				{% set currentCategory = product.category %}
+				<li class="text-center list-group-item-info">{{ product.category }}</li>
+			{% endif %}
+			{% if product.category != currentCategory %}
+				{% set currentCategory = product.category %}
+				<li class="text-center list-group-item-info">{{ currentCategory.name }}</li>
+			{% endif %}
+			<li data-remove="{{ path('ferus_product_remove', {id: product.id}) }}">
+				{{ product }} <span class="small em text-muted">{{ product.unit }}</span>
+				<a class="product-edit pull-right" href="{{ path('ferus_product_edit', {id:product.id}) }}">
+					<i class="fa fa-chevron-right"></i>
+				</a>
+				<label class="sr-only" for="product_label"></label>
+				<input type="tel" class="product-label pull-right" data-change="{{ path('ferus_product_change-quantity', {id: product.id}) }}" value="{{ product.quantity }}" id="product_label" />
+				<i class="fa fa-spinner pull-right"></i>
+			</li>
+		{% endfor %}
+	{% else %}
+		{% for category in listCategories %}
+			<li class="text-center list-group-item-info">{{ category }}</li>
+			{% for product in category.products %}
+				<li data-remove="{{ path('ferus_product_remove', {id: product.id}) }}">
+					{{ product }} <span class="small em text-muted">{{ product.unit }}</span>
+					<a class="product-edit pull-right" href="{{ path('ferus_product_edit', {id:product.id}) }}">
+						<i class="fa fa-chevron-right"></i>
+					</a>
+					<label class="sr-only" for="product_label"></label>
+					<input type="tel" class="product-label pull-right" data-change="{{ path('ferus_product_change-quantity', {id: product.id}) }}" value="{{ product.quantity }}" id="product_label" />
+					<i class="fa fa-spinner pull-right"></i>
+				</li>
+			{% else %}
+				<li class="text-center">Aucun produit n'existe pas dans cette categorie.</li>
+			{% endfor %}
+		{% else %}
+			<li class="text-center">Il n'y a actuellement aucun produit en réserve.</li>
+		{% endfor %}
+	{% endif %}
+</ul>

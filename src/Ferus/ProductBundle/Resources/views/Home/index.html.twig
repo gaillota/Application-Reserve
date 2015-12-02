@@ -1,0 +1,112 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row homepage">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 text-center marginBX">
+                    <a href="{{ path('ferus_product') }}">
+                        <div class="icon">
+                            <i class="fa fa-bitbucket"></i>
+                        </div>
+                    </a>
+                    <div class="title">Réserve</div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 text-center marginBX">
+                    <a href="{{ path('ferus_previs') }}">
+                        <div class="icon">
+                            <i class="fa fa-list-alt"></i>
+                        </div>
+                    </a>
+                    <div class="title">Prévis</div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 text-center marginBX">
+                    <a href="{{ path('ferus_event') }}">
+                        <div class="icon">
+                            <i class="fa fa-drupal"></i>
+                        </div>
+                    </a>
+                    <div class="title">Soirées</div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 text-center marginBX">
+                    <a href="{{ path('ferus_product_add') }}">
+                        <div class="icon">
+                            <i class="fa fa-plus-circle"></i>
+                        </div>
+                    </a>
+                    <div class="title">Retour de Métro</div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 text-center marginBX">
+                    <a href="{{ path('ferus_product_admin_historical') }}">
+                        <div class="icon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </a>
+                    <div class="title">Historique</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12 col-sm-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            {{ listPrevis|length }} derniers prévis
+                        </div>
+                        <ul class="list-group">
+                            {% for previs in listPrevis %}
+                                {% set totalHT, totalTTC = 0, 0 %}
+                                {% for product in previs.previsProducts %}
+                                    {% set totalHT = totalHT + product.quantity * product.product.price %}
+                                    {% set totalTTC = totalTTC + product.quantity * (product.product.price * product.product.taxes / 100 + product.product.price) %}
+                                {% endfor %}
+                                <li class="list-group-item">
+                                    <span class="badge">{{ totalTTC|round('2') }} € TTC</span>
+                                    <span class="badge">{{ totalHT|round('2') }} € HT</span>
+                                    <a href="{{ path('ferus_previs_show', { 'id': previs.id }) }}">
+                                        <i class="fa fa-list-alt"></i> {{ previs.name }}
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item">
+                                    Il n'y aucun prévis pour le moment.
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-primary btn-xs" href="{{ path('ferus_previs_new') }}">
+                                        <i class="fa fa-plus"></i> Ajouter
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            {{ listEvents|length }} dernières soirées
+                        </div>
+                        <ul class="list-group">
+                            {% for event in listEvents %}
+                                <li class="list-group-item">
+                                    <a href="">
+                                        <i class="fa fa-drupal"></i> {{ event.name }}
+                                    </a>
+                                    <small><em>{{ event.date|date('d M Y \\à H:i') }}</em></small>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item">
+                                    Il n'y aucune soirées pour le moment.
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-primary btn-xs" href="{{ path('ferus_event_new') }}">
+                                        <i class="fa fa-plus"></i> Ajouter
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

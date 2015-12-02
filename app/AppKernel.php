@@ -22,8 +22,10 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Ferus\ProductBundle\FerusProductBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            new Siphoc\PdfBundle\SiphocPdfBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,4 +1,2 @@
-<form method="post">
-    {{ form_widget(form) }}
-    <button type="submit">Go</button>
-</form>
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{{ form(form) }}

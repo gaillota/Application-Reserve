@@ -1,0 +1,140 @@
+<div class="table-responsive">
+	<table class="table table-stripped table-hover">
+		<tr class="active">
+			<th>Nom</th>
+			<th>Contenance</th>
+			<th>Prix HT/unité</th>
+			<th>TVA</th>
+			<th>Prix TTC/unité</th>
+			<th>Quantité <i class="fa fa-hand-o-up rotate"></i></th>
+		</tr>
+		{% if search is not null %}
+			<tr>
+				<td colspan="6">
+					{% set n = listProducts|length %}
+					{{ n }} produit{% if n > 1 %}s{% endif %} correspond{% if n > 1 %}ent{% endif %} à la recherche <em>{{ search }}</em>.
+				</td>
+			</tr>
+			{% for product in listProducts %}
+				{% if loop.index == 1 %}
+					{% set currentCategory = product.category %}
+					<tr class="info">
+						<th colspan="6">
+							{{ product.category }}
+							<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:currentCategory.id }) }}" style="position: absolute;right: 10px;">
+								<i class="fa fa-plus"></i> Ajouter à {{ currentCategory }}
+							</a>
+						</th>
+					</tr>
+				{% endif %}
+				{% if product.category != currentCategory %}
+					{% set currentCategory = product.category %}
+					<tr class="info">
+						<th colspan="6">
+							{{ product.category }}
+							<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:currentCategory.id }) }}" style="position: absolute;right: 10px;">
+								<i class="fa fa-plus"></i> Ajouter à {{ currentCategory.name }}
+							</a>
+						</th>
+					</tr>
+				{% endif %}
+				<tr>
+					<td>{{ product.name }}</td>
+					<td>{{ product.unit }}</td>
+					<td>{{ product.price }}€</td>
+					<td>{{ product.taxes }}%</td>
+					<td>
+						{{ product.price + (product.price * product.taxes / 100) | round(2, 'common') }}€
+					</td>
+					<td>
+						<label class="sr-only" for="product_quantity">Quantité</label>
+						<input type="text" value="{{ product.quantity }}" class="quantity"
+						       data-change="{{ path('ferus_product_change-quantity', {id: product.id}) }}" id="product_quantity" />
+						<i class="fa fa-spinner"></i>
+						<a href="{{ path('ferus_product_edit', {id: product.id}) }}" class="edit_product">
+							<i class="fa fa-pencil-square-o"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		{% elseif selectedCategory is not null and selectedCategory != 0 %}
+			<tr class="info">
+				<th colspan="6">
+					{{ category.name }}
+					<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
+						<i class="fa fa-plus"></i> Ajouter à {{ category.name }}
+					</a>
+				</th>
+			</tr>
+			{% for product in category.products %}
+				<tr>
+					<td>{{ product.name }}</td>
+					<td>{{ product.unit }}</td>
+					<td>{{ product.price }}€</td>
+					<td>{{ product.taxes }}%</td>
+					<td>
+						{{ product.price + (product.price * product.taxes / 100) | round(2, 'common') }}€
+					</td>
+					<td>
+						<label class="sr-only" for="product_quantity">Quantité</label>
+						<input type="text" value="{{ product.quantity }}" class="quantity"
+						       data-change="{{ path('ferus_product_change-quantity', {id: product.id}) }}" id="product_quantity" />
+						<i class="fa fa-spinner"></i>
+						<a href="{{ path('ferus_product_edit', {id: product.id}) }}" class="edit_product">
+							<i class="fa fa-pencil-square-o"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6" class="text-center">
+						Il n'existe aucun produit dans cette catégorie.
+					</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			{% for category in listCategories %}
+				<tr class="info">
+					<th colspan="6">
+						{{ category }}
+						<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
+							<i class="fa fa-plus"></i> Ajouter à {{ category }}
+						</a>
+					</th>
+				</tr>
+				{% for product in category.products %}
+					<tr>
+						<td>{{ product.name }}</td>
+						<td>{{ product.unit }}</td>
+						<td>{{ product.price }}€</td>
+						<td>{{ product.taxes }}%</td>
+						<td>
+							{{ product.price + (product.price * product.taxes / 100) | round(2, 'common') }}€
+						</td>
+						<td>
+							<label class="sr-only" for="product_quantity">Quantité</label>
+							<input type="text" value="{{ product.quantity }}" class="quantity"
+							       data-change="{{ path('ferus_product_change-quantity', {id: product.id}) }}" id="product_quantity" />
+							<i class="fa fa-spinner"></i>
+							<a href="{{ path('ferus_product_edit', {id: product.id}) }}" class="edit_product">
+								<i class="fa fa-pencil-square-o"></i>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">
+							Aucun produit n'existe pas dans cette categorie.
+						</td>
+					</tr>
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="6" class="text-center">
+						Il n'y a actuellement aucun produit en réserve.
+					</td>
+				</tr>
+			{% endfor %}
+		{% endif %}
+	</table>
+</div>

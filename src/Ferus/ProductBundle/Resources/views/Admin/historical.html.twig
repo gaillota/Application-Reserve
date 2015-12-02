@@ -1,0 +1,88 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Historique des actions</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2><i class="fa fa-clock-o" style="margin-bottom: 20px;"></i> Historiques des actions</h2>
+	        <fieldset>
+		        <legend>Filtrer par utilisateur</legend>
+		        <a class="btn btn-sm {% if userSelected is not null %}btn-default{% else %}btn-info{% endif %}" href="{{ path('ferus_product_admin_historical') }}">
+			        Tous les utilisateurs
+		        </a>
+		        {% for user in listUsers %}
+			        <a class="btn btn-sm {% if userSelected is not null and userSelected == user %}btn-info{% else %}btn-default{% endif %}" href="{{ path('ferus_product_admin_historical_user', { id:user.id}) }}">
+				        {{ user.firstName }} {{ user.lastName }}
+			        </a>
+		        {% endfor %}
+	        </fieldset>
+            <div class="table-responsive" style="margin-top: 20px;">
+                <table class="table table-hover">
+                    <tr>
+                        <th></th>
+                        <th>Section</th>
+                        <th>Action</th>
+                        <th>le</th>
+                        <th>par</th>
+                    </tr>
+                    {% for historical in listHistorical %}
+                        <tr>
+                            <td>
+                                {% if 'Ajout' in historical.action %}
+                                    <span class="label label-primary">
+                                        <i class="fa fa-download"></i> Ajout
+                                    </span>
+                                {% elseif 'Retrait' in historical.action %}
+                                    <span class="label label-primary">
+                                        <i class="fa fa-upload"></i> Retrait
+                                    </span>
+                                {% elseif 'Nouveau' in historical.action %}
+                                    <span class="label label-success">
+                                        <i class="fa fa-plus"></i> Nouveau
+                                    </span>
+                                {% elseif 'Modification' in historical.action %}
+                                    <span class="label label-warning">
+                                        <i class="fa fa-edit"></i> Modification
+                                    </span>
+                                {% elseif 'Suppression' in historical.action %}
+                                    <span class="label label-danger">
+                                        <i class="fa fa-times"></i> Suppression
+                                    </span>
+                                {% elseif 'Envoi' in historical.action %}
+                                    <span class="label label-info">
+                                        <i class="fa fa-send"></i> Envoi
+                                    </span>
+                                {% elseif 'Téléchargement' in historical.action %}
+                                    <span class="label label-info">
+                                        <i class="fa fa-download"></i> Téléchargement
+                                    </span>
+                                {% else %}
+                                    <span class="label label-info">
+                                        <i class="fa fa-ellipsis-h"></i> Autre
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>{{ historical.entity }}</td>
+                            <td>{{ historical.action }}</td>
+                            <td>{{ historical.date|date_fr }} à {{ historical.date|date('H:i') }}</td>
+                            <td>{{ historical.author.firstName }} {{ historical.author.lastName }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="5">L'historique est vide.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+	        {{ knp_pagination_render(listHistorical) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+<nav {% block navbar_class %}class="navbar navbar-default"{% endblock %}>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('home') }}">
+                <img src="{{ asset('img/log.png') }}" alt="Logo" style="-webkit-transform: scale(0.9); transform: scale(0.9);"/>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('ferus_product') }}">
+                        <i class="fa fa-bitbucket"></i><span class="hidden-sm"> Accéder à la réserve</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="fa fa-list-alt"></i><span class="hidden-sm"> Prévis</span> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('ferus_previs_new') }}"><i class="fa fa-plus"></i> Créer un prévis</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('ferus_previs') }}"><i class="fa fa-list-ul"></i> Tous les prévis</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="fa fa-drupal"></i><span class="hidden-sm"> Soirées</span> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('ferus_event_new') }}"><i class="fa fa-plus"></i> Nouvelle soirée</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('ferus_event') }}"><i class="fa fa-list-ul"></i> Toutes les soirées</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ path('ferus_product_add') }}">
+                        <i class="fa fa-plus-circle"></i><span class="hidden-sm"> Retour de Métro</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('ferus_product_admin_historical') }}">
+                        <i class="fa fa-clock-o"></i> Historique
+                    </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('ferus_category') }}">
+                        <i class="fa fa-chain-broken"></i><span class="hidden-sm"> Catégories</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="visible-xs"><a href="#">------------------------</a></li>
+                <li class="visible-xs"><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Profil</a></li>
+                <li class="visible-xs"><a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Changer mot de passe</a></li>
+                <li class="visible-xs"><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+                <li class="dropdown hidden-xs">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="fa fa-user"></i> {{ app.user.username }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Profil</a></li>
+                        <li><a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Changer mot de passe</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('ferus_product_admin') }}"><i class="fa fa-leaf"></i> Administration</a></li>
+                        {% endif %}
+                        <li class="divider"></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

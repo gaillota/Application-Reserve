@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><i class="fa fa-list-alt"></i> Prévis</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-1 pull-right">
+                    <a class="btn btn-primary pull-right" href="{{ path('ferus_previs_new') }}">
+                        <i class="fa fa-plus"></i> <span class="hidden-xs">Ajouter</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-6 hidden-xs">
+                    <form action="" method="GET" role="form">
+                        <label class="sr-only" for="previs_name">Rechercher un prévis</label>
+                        <i class="fa fa-search fa-2x pull-left"></i>
+                        <input type="text" class="form-control" placeholder="Rechercher un prévis" id="previs_name"  name="search" value="{{ search|default(null) }}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-stripped table-hover">
+                    <tr class="success">
+                        <th>#</th>
+                        <th>Prévis</th>
+                        <th>Produits</th>
+                        <th class="hidden-xs">Evénement</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for previs in listPrevis %}
+                        <tr>
+                            <td>{{ previs.id }}</td>
+                            <td>
+                                <a href="{{ path('ferus_previs_show', { 'id': previs.id }) }}">{{ previs.name }}</a>
+                            </td>
+                            <td>{{ previs.previsProducts|length }}</td>
+                            <td class="hidden-xs">
+                                {% if previs.event is null %}
+                                    <i>Aucun événement associé</i>
+                                {% else %}
+                                    {{ previs.event.name }} - <small><em>{{ previs.event.date|date('d M Y \\à H:i') }}</em></small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="pull-right">
+                                    <a class="btn btn-warning btn-xs"
+                                       href="{{ path('ferus_previs_edit', { 'id': previs.id }) }}">
+                                        <i class="fa fa-edit"></i> <span class="hidden-sm hidden-xs">Modifier</span>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs"
+                                       href="{{ path('ferus_previs_remove', { 'id': previs.id }) }}">
+                                        <i class="fa fa-remove"></i> <span class="hidden-sm hidden-xs">Supprimer</span>
+                                    </a>
+                                </div>
+                                {#<a class="btn btn-info btn-xs"#}
+                                   {#href="{{ path('ferus_previs_show', { 'id': previs.id }) }}">#}
+                                    {#<i class="fa fa-eye"></i> <span class="hidden-sm hidden-xs">Voir</span>#}
+                                {#</a>#}
+                                <a class="btn btn-success btn-xs"
+                                   href="{{ path('ferus_previs_calcul', { 'id': previs.id }) }}">
+                                    <span class="hidden-sm hidden-xs">Liste de courses</span> <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="5">
+                                Il n'y a aucun prévis pour le moment.
+                                <a class="btn btn-primary btn-xs" href="{{ path('ferus_previs_new') }}">
+                                    <i class="fa fa-plus"></i> Ajouter
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

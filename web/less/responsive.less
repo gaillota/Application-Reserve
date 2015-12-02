@@ -1,0 +1,79 @@
+@import "import/variables";
+@import "import/mixins";
+
+@media (min-width:1200px){ //Only lg screens
+  .navbar > .container{
+    width:1000px
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) { //Only sm screens
+}
+
+@media (max-width: 767px) { //Only xs screens
+  .products {
+    padding: 0;
+  }
+
+  .icon {
+    border-radius: 100px;
+    width: 200px;
+    display: inline-block;
+  }
+
+  .add_product {
+    margin-right: 15px;
+  }
+
+  .search-form {
+    margin-top: 10px;
+  }
+}
+
+// Page réserve, vue sur mobile
+
+@item-height: 43px;
+ul.products_list {
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+  background: white;
+  border-top: solid 1px @light;
+
+  li{
+    display: block;
+    position: relative;
+    line-height: @item-height;
+    border-bottom: solid 1px @light;
+    padding: 0 15px;
+
+    a.product-edit {
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+    }
+
+    i.fa-spinner {
+      display: none;
+      line-height: @item-height;
+      vertical-align: middle;
+      -webkit-animation: infinite-spin 1s linear 0s infinite;
+      -moz-animation: infinite-spin 1s linear 0s infinite;
+      -o-animation: infinite-spin 1s linear 0s infinite;
+      animation: infinite-spin 1s linear 0s infinite;
+    }
+
+    @label-height: 22px;
+    .product-label{
+      position: relative;
+      width: 35px;
+      margin: 10px 10px;
+      text-align: center;
+      line-height: @label-height;
+      padding: 0 4px;
+      border: solid 1px @light;
+      color: @light;
+      .border-radius(4px);
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><i class="fa fa-remove"></i> Supprimer une catégorie</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <p class="text-center">
+                <i class="fa fa-exclamation-triangle"></i> Êtes-vous vraiment certain de vouloir supprimer la catégorie <em>{{ category.name }}</em> ? <br/>
+                N'oublie pas que cela supprimera également <strong><u>tous</u></strong> les produits liés à cette catégorie !
+            </p>
+            <form action="" method="POST">
+                <a href="{{ path('ferus_category') }}" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i> Retour aux catégories
+                </a>
+                <button class="btn btn-danger" type="submit">
+                    <i class="fa fa-trash"></i>
+                    Supprimer
+                </button>
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

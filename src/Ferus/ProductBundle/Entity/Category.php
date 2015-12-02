@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Category
  *
- * @ORM\Table(name="ferus_log_category")
+ * @ORM\Table(name="ferus_reserve_category")
  * @ORM\Entity(repositoryClass="Ferus\ProductBundle\Repository\CategoryRepository")
  * @UniqueEntity("name")
  */
@@ -19,7 +19,7 @@ class Category
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_category", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -34,9 +34,9 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"remove"})
      */
-    protected $products;
+    private $products;
 
     /**
      * Constructor

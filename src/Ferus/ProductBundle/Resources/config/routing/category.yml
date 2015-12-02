@@ -1,13 +1,19 @@
-ferus_categories:
+ferus_category:
     pattern:  /
     defaults: { _controller: FerusProductBundle:Category:index }
 
-ferus_categories_new:
+ferus_category_new:
     pattern:  /new
     defaults: { _controller: FerusProductBundle:Category:new }
 
-ferus_categories_show:
-    pattern:  /{id}
-    defaults: { _controller: FerusProductBundle:Category:show }
+ferus_category_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusProductBundle:Category:edit }
+    requirements:
+        id: \d+
+
+ferus_category_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusProductBundle:Category:remove }
     requirements:
         id: \d+

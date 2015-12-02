@@ -18,12 +18,15 @@
         "sensio/distribution-bundle": "~2.3",
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "leafo/lessphp": "0.3.*@dev",
         "stof/doctrine-extensions-bundle": "dev-master",
         "jms/security-extra-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "2.3.*@dev"
+        "suncat/mobile-detect-bundle": "0.10.*",
+        "siphoc/pdf-bundle": "1.2.*",
+        "knplabs/knp-paginator-bundle": "^2.4"
     },
     "scripts": {
         "post-install-cmd": [
@@ -46,7 +49,7 @@
     },
     "extra": {
         "symfony-app-dir": "app",
-        "symfony-web-dir": "www",
+        "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },

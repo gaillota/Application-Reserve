@@ -1,0 +1,61 @@
+table.text-center > tbody > tr > th {
+  text-align: center !important;
+}
+div.product {
+  padding-top: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+div.product div:first-child {
+  display: inline-block;
+  width: 90%;
+  text-align: center;
+}
+div.product input {
+  margin: 0 40px;
+}
+div.product select {
+  height: 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #555;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+div.product select:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
+}
+div.product input[type="number"] {
+  width: 60px;
+  height: 30px;
+  padding: 5px 6px;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #555;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  text-align: center;
+}
+div.product input[type=number]::-webkit-outer-spin-button,
+div.product input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+div.product input[type=number] {
+  -moz-appearance: textfield;
+}
+div.product .pull-right button {
+  position: relative;
+  top: 5px;
+}
+button[type="button"] {
+  margin-top: 5px;
+}

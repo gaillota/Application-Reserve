@@ -1,0 +1,5 @@
+services:
+    ferus_product.date_fr_extension:
+        class: Ferus\ProductBundle\Twig\DateFrExtension
+        tags:
+            - { name: twig.extension }

@@ -1,0 +1,111 @@
+@import "import/variables";
+@import "import/mixins";
+
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Calibri, Arial, "sans-serif";
+}
+
+body{
+    background: white;
+}
+
+a, a:hover, a:visited, a:active, a:focus {
+  outline: 0;
+}
+
+.em {
+  font-style: italic;
+}
+
+.img-shadow {
+  .box-shadow(2px, 5px, 10px, #000);
+}
+
+.navbar .navbar-brand {
+  padding-top: 0;
+}
+
+.homepage {
+  margin-top: 30px;
+
+  .marginBX {
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    height: 200px;
+    line-height: 200px;
+    .border-radius(20px);
+    .marginBottom10();
+    font-size: 72px;
+    border: 2px solid #428BCA;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .icon:hover {
+    cursor: pointer;
+    background-color: #428BCA;
+    color: #fff;
+  }
+
+  .title {
+    color: #428BCA;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .icon {
+      border-radius: 100px;
+      width: 200px;
+      display: inline-block;
+    }
+  }
+}
+
+.products .table {
+  margin-top: 16px;
+
+  .rotate {
+    .transform(1, -45deg);
+  }
+
+  th, td {
+    text-align: center;
+    position: relative;
+  }
+
+  input.quantity {
+    width: 40px;
+    background: transparent;
+    border: 0;
+    text-align: center;
+  }
+  
+  .fa-spinner {
+    display: none;
+    position: absolute;
+    top: 12px;
+    -webkit-animation: infinite-spin 1s linear 0s infinite;
+    -moz-animation: infinite-spin 1s linear 0s infinite;
+    -o-animation: infinite-spin 1s linear 0s infinite;
+    animation: infinite-spin 1s linear 0s infinite;
+  }
+
+  tr {
+    .edit_product {
+      display: none;
+      position: absolute;
+      top: 7px;
+      right: 18px;
+      color: @darkAsFuck;
+    }
+
+    &:hover .edit_product {
+      display: block;
+    }
+  }
+}

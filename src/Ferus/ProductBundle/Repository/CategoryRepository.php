@@ -12,4 +12,33 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function findAllArray()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function myFindAll()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.products', 'p')
+            ->orderBy('c.name', 'DESC')
+            ->addOrderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function myFindByCategory($category)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.products', 'p')
+            ->where('c.id = :category')
+            ->setParameter('category', $category)
+            ->orderBy('c.name', 'DESC')
+            ->addOrderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

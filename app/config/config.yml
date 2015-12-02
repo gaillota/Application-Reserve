@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: services.yml }
 
 framework:
     #esi:             ~
@@ -28,16 +29,13 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - ':Form:form_div_layout.html.twig'
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
-    read_from:      "%kernel.root_dir%/../www"
+    read_from:      "%kernel.root_dir%/../web"
     filters:
         cssrewrite: ~
         lessphp:
@@ -90,6 +88,16 @@ stof_doctrine_extensions:
             uploadable: true
             sortable: true
 
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
 
 jms_di_extra:
     automatic_controller_injections:
@@ -106,9 +114,16 @@ jms_di_extra:
 jms_security_extra:
     expressions: true
 
-knp_paginator:
-    page_range: 5
-    default_options:
-        page_name: page
-    template:
-        pagination: ::pagination.html.twig
+mobile_detect:
+    redirect:
+        mobile: ~
+        tablet: ~
+    switch_device_view: ~
+
+siphoc_pdf:
+    basepath: "%kernel.root_dir%/../web"
+    binary: "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
+    options:
+        'lowquality': false
+        'enable-javascript': true
+        'debug-javascript': true

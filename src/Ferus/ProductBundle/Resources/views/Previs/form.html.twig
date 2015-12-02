@@ -1,0 +1,70 @@
+{{ form_start(form, { 'attr': { 'id': 'ferus_productbundle_previs_form', 'class': 'form_horizontal' }}) }}
+
+<div class="form-group">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' }}) }}
+    {{ form_errors(form.name) }}
+</div>
+
+{#{% if form.event is defined %}#}
+    <div class="form-group">
+        {{ form_label(form.event) }}
+        {{ form_widget(form.event, { 'attr' : { 'class' : 'form-control' }}) }}
+        {{ form_errors(form.event) }}
+    </div>
+{#{% elseif hasEvent and event is not null %}#}
+    {#<div class="form-group">#}
+        {#<label for="event">Soirée</label>#}
+        {#<select class="form-control" name="event" id="event" disabled>#}
+            {#<option value="{{ event.id }}">{{ event.name }}</option>#}
+        {#</select>#}
+    {#</div>#}
+{#{% endif %}#}
+
+{#{{ dump(form.previs_products) }}#}
+
+<fieldset>
+    <legend><b>Liste des produits</b></legend>
+    <table class="table table-hover product">
+        {% for product in form.previs_products %}
+            {#{{ dump(product) }}#}
+            {% if loop.index == 1 %}
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Quantité</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+            {#<div class="product">#}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        {% form_theme product.product 'bootstrap_3_layout.html.twig' %}
+                        {{ form_widget(product.product) }}
+                    </td>
+                    <td>
+                        {% form_theme product.quantity 'bootstrap_3_layout.html.twig' %}
+                        {{ form_widget(product.quantity) }}
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger" data-remove-widget>
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+            {#</div>#}
+        {% endfor %}
+    </table>
+    <button type="button" class="btn btn-success pull-right" data-prototype="{{ form_widget(form.previs_products.vars.prototype)|e }}">
+        <i class="fa fa-plus"></i>
+    </button>
+</fieldset>
+
+<div class="form-group">
+    {{ form_widget(form.save, { 'attr' : { 'class' : 'btn btn-primary' }}) }}
+</div>
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

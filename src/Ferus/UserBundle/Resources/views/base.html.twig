@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1>{% block h1_title %}{% endblock %}</h1>
+            <hr/>
+        </div>
+    </div>
+    {% block user_bundle_content %}
+    {% endblock %}
+{% endblock %}

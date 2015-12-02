@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+
+{% trans_default_domain 'FerusProductBundle' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><i class="fa fa-drupal"></i> Soirées</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-1 pull-right">
+            <a class="btn btn-primary pull-right" href="{{ path('ferus_event_new') }}">
+                <i class="fa fa-plus"></i> <span class="hidden-xs">Ajouter</span>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6 hidden-xs">
+            <form action="" method="GET" role="form">
+                <label class="sr-only" for="event_name">Rechercher une soirée</label>
+                <i class="fa fa-search fa-2x pull-left"></i><input type="text" class="form-control" placeholder="Rechercher une soirée" id="event_name" name="search" value="{{ search|default(null) }}"/>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-stripped table-hover">
+                    <tr class="danger">
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Date</th>
+	                    <th>Bars</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.date|date("d") ~ ' ' ~ event.date|date("M")|trans ~ ' ' ~ event.date|date("Y") }} <small><em>à {{ event.date|date('H:i') }}</em></small></td>
+	                        <td>
+		                        {% for bar in event.bars %}
+			                        {{ bar.name }}{% if not loop.last %}, {% endif %}
+		                        {% else %}
+			                        <em>Aucun bar pour cette soirée.</em>
+		                        {% endfor %}
+	                        </td>
+                            <td>
+                                <div class="pull-right">
+                                    <a class="btn btn-warning btn-xs"
+                                       href="{{ path('ferus_event_edit', { 'id': event.id }) }}">
+                                        <i class="fa fa-edit"></i> <span class="hidden-xs">Modifier</span>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs" href="{{ path('ferus_event_remove', { 'id': event.id }) }}">
+                                        <i class="fa fa-remove"></i> <span class="hidden-xs">Supprimer</span>
+                                    </a>
+	                                <a class="btn btn-success btn-xs{% if event.previs is null or event.previs.previsProducts is empty %} disabled{% endif %}" href="{% if event.previs is null %}#{% else %}{{ path('ferus_event_list_bars', {id: event.id }) }}{% endif %}">
+		                                Mode soirée <i class="fa fa-arrow-right"></i>
+	                                </a>
+                                </div>
+                                {% if event.previs is not null %}
+	                                {% if event.previs.previsProducts is empty %}
+		                                <a class="btn btn-success btn-xs" href="{{ path('ferus_previs_edit', {id:event.previs.id}) }}">
+			                                <i class="fa fa-plus"></i> <span class="hidden-xs">Ajouter produits</span>
+		                                </a>
+	                                {% else %}
+	                                    <a class="btn btn-info btn-xs" href="{{ path('ferus_previs_show', {id: event.previs.id}) }}">
+	                                        <i class="fa fa-eye"></i> <span class="hidden-xs">Voir prévis</span>
+	                                    </a>
+	                                {% endif %}
+                                {% else %}
+                                    <a class="btn btn-success btn-xs" href="{{ path('ferus_previs_new', {event:event.id}) }}">
+                                        <i class="fa fa-plus"></i> <span class="hidden-xs">Créer prévis</span>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="3">
+                                Il n'y aucune soirée pour le moment.
+                                <a class="btn btn-primary btn-xs" href="{{ path('ferus_event_new') }}">
+                                    <i class="fa fa-plus"></i> Ajouter
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

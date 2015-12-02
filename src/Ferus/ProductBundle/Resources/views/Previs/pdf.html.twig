@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Application Réserve{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><i class="fa fa-list-alt"></i> Liste des courses pour {{ previs.name }}</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Informations liste des courses
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <u>Nombre de produits</u> : <strong>{{ previs.previsProducts|length }}</strong> article{% if previs.previsProducts|length > 1 %}s{% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        <u>Coûts des achats</u> : <strong>{{ coutHT }} €</strong> Hors Taxes, <strong>{{ coutTTC }} €</strong> Toutes Taxes Comprises ( <i class="fa fa-exclamation-circle"></i> sans taxe alcool fort)
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 div-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+            <table class="table table-hover text-center">
+                <tr>
+                    <th class="text-center">Produit</th>
+                    <th class="text-center">Prévis</th>
+                    <th class="text-center">Réserve</th>
+                    <th class="text-center"></th>
+                    <th class="text-center">A acheter</th>
+                </tr>
+                {% for product in previs.previsProducts %}
+                    <tr>
+                        <td>{{ product.product.name }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.product.quantity }}</td>
+                        <td>-></td>
+                        <td>
+                            {% set toBuy = product.quantity - product.product.quantity %}
+                            {% if toBuy <= 0 %}
+                                Rien à acheter
+                            {% else %}
+                                {{ toBuy }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

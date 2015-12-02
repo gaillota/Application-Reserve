@@ -2,52 +2,41 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Application Réserve{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         {% block stylesheets %}
-            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+            {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">#}
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{{ asset('cdn/bootstrap.min.css') }}"/>
             {% stylesheets
             'less/layout.less'
             'less/form.less'
+            'less/responsive.less'
             filter='cssrewrite'
             output='css/main.css'
             %}
-            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
             {% endstylesheets %}
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
     </head>
-    <body>
-    <div class="side-menu">
-        <div class="drop"></div>
-        <ul>
-            <li>
-                <a href="{{ path('ferus_products') }}">
-                    Produits
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('ferus_categories') }}">
-                    Catégories
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('ferus_places') }}">
-                    Lieux
-                </a>
-            </li>
-        </ul>
-    </div>
-        <div class="toolbar">
-            {% block toolbar %}{% endblock %}
+    <body style="padding-bottom: 20px;;">
+    {% block navbar %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% include '::nav.html.twig' %}
+        {% endif %}
+    {% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+            <footer class="text-center" style="margin-top: 10px;">Copyright @ Antoine Gaillot</footer>
         </div>
-        {% block body %}{% endblock %}
         {% block javascripts %}
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+            {#<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>#}
+            {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>#}
+            <script type="text/javascript" src="{{ asset('cdn/jquery-1.11.1.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('cdn/bootstrap.min.js') }}"></script>
             {% javascripts
-            'js/remove.js'
-            'js/form.js'
-            'js/side-menu.js'
+            'js/change.js'
             output='js/script.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>

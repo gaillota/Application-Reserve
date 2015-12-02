@@ -1,28 +1,61 @@
 {% extends '::base.html.twig' %}
 
-{% block toolbar %}
-    <a class="left" data-toggle="side-menu">
-        <i class="fa fa-bars"></i>
-    </a>
-    <a class="right" data-toggle="remove">
-        Suppr
-    </a>
-    Produits
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><i class="fa fa-bitbucket"></i> Réserve</h1>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-3 pull-right">
+            <a class="btn btn-primary pull-right add_product" href="{{ path('ferus_product_new') }}">
+                <i class="fa fa-plus"></i> <span class="hidden-xs">Ajouter</span>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-5 col-xs-8">
+            <form action="" method="GET" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="product_name">Rechercher un produit</label>
+	                <div class="input-group">
+		                <span class="input-group-addon" id="search-addon"><i class="fa fa-search"></i></span>
+		                <input type="text" class="form-control" placeholder="Recherche" aria-describedby="search-addon" id="product_name" name="search" value="{{ search|default(null) }}"/>
+	                </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-0 hidden-xs">
+            <form action="" method="GET" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="product_category">Trier par catégorie</label>
+                    <select class="form-control" name="category" id="product_category">
+                        <option value="0">Toutes les catégories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}"{% if category.id == selectedCategory %} selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 products">
+	        {% include is_mobile() ? 'FerusProductBundle:Product:mobile.html.twig' : 'FerusProductBundle:Product:full.html.twig' %}
+        </div>
+    </div>
 {% endblock %}
 
-{% block body %}
-    <form class="search-form" action="{{ path('ferus_products_new') }}" method="get">
-        <input type="text" placeholder="Nouveau" name="name">
-    </form>
-    <ul>
-        {% for product in products %}
-            <li data-remove="lol">
-                <a href="{{ path('ferus_products_show', {id:product.id}) }}">
-                    {{ product }}
-                    <span class="label">{{ stocks[product.id] }}</span>
-                    <i class="fa fa-chevron-right"></i>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('#product_category').change(function() {
+                var $this = $(this);
+                var form = $this.parents('form');
+
+                form.submit();
+            })
+        })
+    </script>
 {% endblock %}
+

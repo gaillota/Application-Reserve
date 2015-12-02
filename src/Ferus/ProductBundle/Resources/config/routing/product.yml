@@ -1,19 +1,29 @@
-ferus_products:
+ferus_product:
     pattern:  /
     defaults: { _controller: FerusProductBundle:Product:index }
 
-ferus_products_new:
+ferus_product_new:
     pattern:  /new
     defaults: { _controller: FerusProductBundle:Product:new }
 
-ferus_products_show:
-    pattern:  /{id}
-    defaults: { _controller: FerusProductBundle:Product:show }
-    requirements:
-        id: \d+
-
-ferus_products_edit:
+ferus_product_edit:
     pattern:  /{id}/edit
     defaults: { _controller: FerusProductBundle:Product:edit }
     requirements:
         id: \d+
+
+ferus_product_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusProductBundle:Product:remove }
+    requirements:
+        id: \d+
+
+ferus_product_change-quantity:
+    pattern: /{id}/change-quantity
+    defaults: { _controller: FerusProductBundle:Product:changeQuantity }
+    requirements:
+        id: \d+
+
+ferus_product_add:
+    pattern: /add
+    defaults: { _controller: FerusProductBundle:Product:add }
