@@ -1,0 +1,55 @@
+{{ form_start(form) }}
+	<div id="{{ form.vars.id }}">
+	    <div class="form-group">
+	        {{ form_label(form.name) }}
+	        {{ form_widget(form.name, { 'attr': { 'class': 'form-control' }}) }}
+	        {{ form_errors(form.name) }}
+	    </div>
+	    <div class="form-group">
+	        {{ form_label(form.date) }}
+		    <div id="{{ form.date.vars.id }}" class="form-inline">
+			    {#{{ form_widget(form.date, { 'attr': { 'class': 'form-control' }}) }}#}
+			    {{ form_widget(form.date.date.day, { 'attr': { 'class': 'form-control' }}) }}
+			    {{ form_widget(form.date.date.month, { 'attr': { 'class': 'form-control' }}) }}
+			    {{ form_widget(form.date.date.year, { 'attr': { 'class': 'form-control' }}) }}
+			    à
+			    {{ form_widget(form.date.time.hour, { 'attr': { 'class': 'form-control' }}) }}
+			    h
+			    {{ form_widget(form.date.time.minute, { 'attr': { 'class': 'form-control' }}) }}
+			    {{ form_errors(form.date) }}
+		    </div>
+	    </div>
+	    <div class="form-group">
+	        {{ form_label(form.previs) }}
+	        {{ form_widget(form.previs, { 'attr': { 'class': 'form-control' }}) }}
+	        {{ form_errors(form.previs) }}
+	    </div>
+		<div class="form-group">
+			{{ form_label(form.bars) }}
+			<table class="table table-hover table-bordered bars">
+				{% for bar in form.bars %}
+					<tr>
+						<td>
+							{{ form_widget(bar.name, { 'attr': { 'class': 'form-control' }}) }}
+						</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-danger" data-remove-widget><i class="fa fa-times"></i></button>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<button type="button" class="btn btn-success btn-xs pull-right" data-prototype="{{ form_widget(form.bars.vars.prototype)|e }}">
+				<i class="fa fa-plus"></i> Ajouter un bar
+			</button>
+			{{ form_widget(form.bars) }}
+			<div class="clearfix"></div>
+		</div>
+	    <div class="form-group">
+	        {{ form_widget(form.save, {'attr': {'class': 'btn btn-default'}}) }}
+	        {% if form.saveAndAdd is defined %}
+	            {{ form_widget(form.saveAndAdd, {'attr': {'class': 'btn btn-default'}}) }}
+	        {% endif %}
+	    </div>
+	    {{ form_rest(form) }}
+	</div>
+{{ form_end(form) }}

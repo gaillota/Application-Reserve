@@ -3,6 +3,14 @@ home:
     defaults:
         _controller: FerusProductBundle:Home:index
 
+ferus_admin_bundle:
+    resource: "@FerusAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+ferus_event_bundle:
+    resource: "@FerusEventBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ferus_product_bundle:
     resource: "@FerusProductBundle/Resources/config/routing.yml"
     prefix:   /
@@ -11,6 +19,9 @@ ferus_user_bundle:
     resource: "@FerusUserBundle/Resources/config/routing.yml"
     prefix: /
 
+#
+# Vendors
+#
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

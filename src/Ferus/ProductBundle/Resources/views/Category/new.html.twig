@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_category') }}">Catégories</a></li>
+    <li class="active">Ajouter</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Ajouter une catégorie</h2>
+            <hr>
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,4 +1,9 @@
 services:
+    ag_vault.font_awesome_extension:
+        class: Ferus\ProductBundle\Twig\FontAwesomeExtension
+        tags:
+            - { name: twig.extension }
+
     ferus_product.date_fr_extension:
         class: Ferus\ProductBundle\Twig\DateFrExtension
         tags:

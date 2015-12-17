@@ -3,7 +3,7 @@
 namespace Ferus\ProductBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-use Ferus\ProductBundle\Entity\Event;
+use Ferus\EventBundle\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,11 +15,6 @@ class PrevisType extends AbstractType
      */
     private $event;
 
-//    /**
-//     * @var boolean
-//     */
-//    private $hasEvent;
-
     /**
      * Set the hasEvent boolean
      *
@@ -28,7 +23,6 @@ class PrevisType extends AbstractType
     public function __construct($event = null)
     {
         $this->event = $event;
-//        $this->hasEvent = $eventFlag;
     }
 
     /**
@@ -45,7 +39,7 @@ class PrevisType extends AbstractType
 //        if (null === $this->hasEvent  || !$this->hasEvent) {
 //            $builder
             ->add('event', 'entity', array(
-                'class' => 'FerusProductBundle:Event',
+                'class' => 'FerusEventBundle:Event',
                 'property' => 'name',
                 'multiple' => false,
                 'expanded' => false,
@@ -93,7 +87,7 @@ class PrevisType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ferus\ProductBundle\Entity\Previs'
+            'data_class' => 'Ferus\EventBundle\Entity\Previs'
         ));
     }
 
@@ -102,6 +96,6 @@ class PrevisType extends AbstractType
      */
     public function getName()
     {
-        return 'ferus_productbundle_previs';
+        return 'ferus_eventbundle_previs';
     }
 }

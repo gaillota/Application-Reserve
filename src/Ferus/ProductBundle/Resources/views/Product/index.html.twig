@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Réserve</li>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-md-12 text-center">
@@ -9,7 +14,7 @@
     <hr/>
     <div class="row">
         <div class="col-md-3 pull-right">
-            <a class="btn btn-primary pull-right add_product" href="{{ path('ferus_product_new') }}">
+            <a class="btn btn-success pull-right add_product" href="{{ path('ferus_product_new') }}">
                 <i class="fa fa-plus"></i> <span class="hidden-xs">Ajouter</span>
             </a>
         </div>

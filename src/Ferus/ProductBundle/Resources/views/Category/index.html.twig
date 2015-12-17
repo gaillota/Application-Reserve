@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Catégories</li>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-md-12 text-center">
@@ -9,13 +14,7 @@
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            {% for label, flashes in app.session.flashbag.all %}
-                {% for flash in flashes %}
-                    <div class="alert alert-{{ label }}">{{ flash }}</div>
-                {% endfor %}
-            {% endfor %}
-            <div class="clearfix"></div>
-            <div class="panel panel-warning" style="margin-top: 10px;">
+            <div class="panel panel-warning">
                 <div class="panel-heading">
                     Liste des catégories
                 </div>
@@ -56,16 +55,6 @@
                             <td colspan="4">Il n'existe aucune catégorie.</td>
                         </tr>
                     {% endfor %}
-                    <tr>
-                        <td class="text-right" colspan="4">
-                            <form class="search-form form-inline" action="{{ path('ferus_category_new') }}" method="get">
-                                <div class="form-group pull-right">
-                                    <label for="new_category">Ajouter une catégorie : </label>
-                                    <input class="form-control" type="text" placeholder="Nouvelle catégorie" name="name" id="new_category">
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>

@@ -32,7 +32,7 @@
 					<tr class="info">
 						<th colspan="6">
 							{{ product.category }}
-							<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:currentCategory.id }) }}" style="position: absolute;right: 10px;">
+							<a class="btn btn-info btn-xs" href="{{ path('ferus_product_new', {category_id:currentCategory.id }) }}" style="position: absolute;right: 10px;">
 								<i class="fa fa-plus"></i> Ajouter à {{ currentCategory.name }}
 							</a>
 						</th>
@@ -61,7 +61,7 @@
 			<tr class="info">
 				<th colspan="6">
 					{{ category.name }}
-					<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
+					<a class="btn btn-info btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
 						<i class="fa fa-plus"></i> Ajouter à {{ category.name }}
 					</a>
 				</th>
@@ -97,7 +97,7 @@
 				<tr class="info">
 					<th colspan="6">
 						{{ category }}
-						<a class="btn btn-primary btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
+						<a class="btn btn-info btn-xs" href="{{ path('ferus_product_new', {category_id:category.id }) }}" style="position: absolute;right: 10px;">
 							<i class="fa fa-plus"></i> Ajouter à {{ category }}
 						</a>
 					</th>
@@ -131,7 +131,8 @@
 			{% else %}
 				<tr>
 					<td colspan="6" class="text-center">
-						Il n'y a actuellement aucun produit en réserve.
+						Il n'y a actuellement aucun produit en réserve. Commence d'abord par ajouter une catégorie <a
+								href="{{ path('ferus_category_new') }}">Ajouter</a>
 					</td>
 				</tr>
 			{% endfor %}

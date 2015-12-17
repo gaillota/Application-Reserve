@@ -27,8 +27,8 @@ class HomeController extends Controller
         //Nombre de soirées à afficher sur la page d'accueil
         $nbEvents = 3;
 
-        $listPrevis = $this->em->getRepository('FerusProductBundle:Previs')->findBy(array(), array('id' => 'DESC'), $nbPrevis);
-        $listEvents = $this->em->getRepository('FerusProductBundle:Event')->findBy(array(), array('date' => 'DESC'), $nbEvents);
+        $listPrevis = $this->em->getRepository('FerusEventBundle:Previs')->findBy(array(), array('id' => 'DESC'), $nbPrevis);
+        $listEvents = $this->em->getRepository('FerusEventBundle:Event')->findBy(array(), array('date' => 'DESC'), $nbEvents);
 
         return array(
             'listPrevis' => $listPrevis,

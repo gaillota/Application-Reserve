@@ -37,28 +37,36 @@ class ProductType extends AbstractType
             ))
             ->add('name', 'text', array(
                 'label' => 'Nom',
+                'attr' => array(
+                    'autofocus' => true
+                )
             ))
             ->add('unit', 'choice', array(
                 'label' => 'Unité de mesure',
+                'expanded' => true,
+                'multiple' => false,
                 'choices' => array(
                     '35mL' => '35mL',
                     '70mL' => '70mL',
                     '1L' => '1L',
-                    '1,5L' => '1,5L'
+                    '1,5L' => '1,5L',
                 ),
-                'preferred_choices' => array(
-                    '70mL'
-                ),
+                'choices_as_values' => true,
             ))
             ->add('price', 'number', array(
                 'label' => 'Prix HT',
                 'precision' => 2,
-                'data' => '10.00'
             ))
-            ->add('taxes', 'number', array(
+            ->add('taxes', 'choice', array(
                 'label' => '% TVA',
-                'precision' => 2,
-                'data' => '20'
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    '20%' => '20',
+                    '10%' => '10',
+                    '5,5%' => '5.5'
+                ),
+                'choices_as_values' => true,
             ))
             ->add('quantity', 'integer', array(
                 'label' => 'Quantité'

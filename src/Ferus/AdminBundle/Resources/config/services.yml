@@ -1,0 +1,4 @@
+services:
+#    ferus_admin.example:
+#        class: Ferus\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -3,7 +3,7 @@
 namespace Ferus\ProductBundle\Controller;
 
 use Ferus\ProductBundle\Entity\Category;
-use Ferus\ProductBundle\Entity\Historical;
+use Ferus\AdminBundle\Entity\Historical;
 use Ferus\ProductBundle\Entity\Product;
 use Ferus\ProductBundle\Form\ListProductAddType;
 use Ferus\ProductBundle\Form\ProductAddType;
@@ -216,7 +216,7 @@ class ProductController extends Controller
         $listProducts = null;
 
         if (null !== $previs_id) {
-            $previs = $this->em->getRepository('FerusProductBundle:Previs')->find($previs_id);
+            $previs = $this->em->getRepository('FerusEventBundle:Previs')->find($previs_id);
             $listProducts = $this->em->getRepository('FerusProductBundle:Product')->findAll();
         }
 

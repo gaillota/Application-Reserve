@@ -5,15 +5,3 @@ ferus_ProductBundle_category:
 ferus_ProductBundle_product:
     resource: "@FerusProductBundle/Resources/config/routing/product.yml"
     prefix:   /products
-
-ferus_ProductBundle_event:
-    resource: "@FerusProductBundle/Resources/config/routing/event.yml"
-    prefix:   /events
-
-ferus_ProductBundle_previs:
-    resource: "@FerusProductBundle/Resources/config/routing/previs.yml"
-    prefix:   /previs
-
-ferus_productbundle_admin:
-    resource: "@FerusProductBundle/Resources/config/routing/admin.yml"
-    prefix: /admin

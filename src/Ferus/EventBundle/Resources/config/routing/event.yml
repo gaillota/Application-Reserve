@@ -1,0 +1,26 @@
+ferus_event:
+    pattern: /
+    defaults: { _controller: FerusEventBundle:Event:index }
+
+ferus_event_new:
+    pattern: /new
+    defaults: { _controller: FerusEventBundle:Event:new }
+
+ferus_event_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusEventBundle:Event:edit }
+    requirements:
+        id: \d+
+
+ferus_event_remove:
+     pattern: /{id}/remove
+     defaults: { _controller: FerusEventBundle:Event:remove }
+     requirements:
+         id: \d+
+
+ferus_event_list_bars:
+    pattern: /{id}/list-bars
+    defaults:
+        _controller: FerusEventBundle:Event:listBars
+    requirements:
+        id: \d+

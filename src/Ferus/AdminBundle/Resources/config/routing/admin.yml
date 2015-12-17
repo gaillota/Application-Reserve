@@ -1,0 +1,16 @@
+ferus_admin:
+    path: /
+    defaults:
+        _controller: FerusAdminBundle:Admin:index
+
+ferus_admin_product_historical:
+    path: /historical
+    defaults:
+        _controller: FerusAdminBundle:Admin:historical
+
+ferus_admin_product_historical_user:
+    path: /historical/{id}
+    defaults:
+        _controller: FerusAdminBundle:Admin:historical
+    requirements:
+        id: \d+

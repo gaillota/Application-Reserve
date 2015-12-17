@@ -1,0 +1,18 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_admin') }}">Administration</a></li>
+    <li><a href="{{ path('ferus_admin_user') }}">Gestion des utilisateurs</a></li>
+    <li class="active">Ajouter</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1><i class="fa fa-user-plus"></i> Ajouter un utilisateur</h1>
+            <hr/>
+            {% include 'FerusAdminBundle:User:form.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

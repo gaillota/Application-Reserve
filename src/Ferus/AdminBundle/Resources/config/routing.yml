@@ -1,0 +1,11 @@
+ferus_admin:
+    resource: "@FerusAdminBundle/Resources/config/routing/admin.yml"
+    prefix:   /
+
+ferus_admin_product:
+    resource: "@FerusAdminBundle/Resources/config/routing/product.yml"
+    prefix:   /products
+
+ferus_admin_user:
+    resource: "@FerusAdminBundle/Resources/config/routing/user.yml"
+    prefix:   /users

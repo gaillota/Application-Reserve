@@ -1,0 +1,14 @@
+Salut {{ user.firstName }} !
+
+Ton respo Logistique vient de te créer un compte sur l'appli Réserve.
+Voici tes identifiants :
+ - login : {{ user.usernameCanonical }}
+ - password : {{ password }}
+
+Tu peux te connecter sur l'application à l'adresse suivante : {{ url('fos_user_security_login') }}
+Je te conseille de changer ton mot de passe assez rapidement.
+
+Logicien forever !
+
+Cordialement.
+Le serveur du BDE.

@@ -1,10 +1,16 @@
 {% extends '::base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_product') }}">Réserve</a></li>
+    <li class="active">Créer un produit</li>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             <a class="btn btn-default btn-xs" href="{{ path('ferus_product') }}"><i class="fa fa-arrow-left"></i> Retour</a>
-            <h2>Ajouter un produit</h2>
+            <h2><i class="fa fa-plus"></i> Ajouter un produit</h2>
         </div>
     </div>
     <hr/>

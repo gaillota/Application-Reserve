@@ -16,22 +16,25 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Ferus\UserBundle\FerusUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new Ferus\ProductBundle\FerusProductBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
-            new Siphoc\PdfBundle\SiphocPdfBundle()
+            new Siphoc\PdfBundle\SiphocPdfBundle(),
+            new Ferus\UserBundle\FerusUserBundle(),
+            new Ferus\ProductBundle\FerusProductBundle(),
+            new Ferus\AdminBundle\FerusAdminBundle(),
+            new Ferus\EventBundle\FerusEventBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
         return $bundles;

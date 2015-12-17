@@ -1,0 +1,77 @@
+{% extends '::admin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}"/>
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Administration</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row admin_homepage">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h2 style="color: #428BCA;"><i class="fa fa-leaf"></i> Administration du turfu</h2>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Historique
+                        </div>
+                        <div class="panel-body" style="margin: 0 20px;">
+                            <a href="{{ path('ferus_admin_product_historical') }}">
+                                <div class="icon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </a>
+                            <div class="title">
+                                Historique des actions
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Produits
+                        </div>
+                        <div class="panel-body" style="margin: 0 20px;">
+                            <a href="{{ path('ferus_admin_product_list') }}">
+                                <div class="icon">
+                                    <i class="fa fa-bitbucket"></i>
+                                </div>
+                            </a>
+                            <div class="title">
+                                Liste des produits
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            Utilisateurs
+                        </div>
+                        <div class="panel-body" style="margin: 0 20px;">
+                            <a href="{{ path('ferus_admin_user') }}">
+                                <div class="icon">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </a>
+                            <div class="title">
+                                Gestion des utilisateurs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

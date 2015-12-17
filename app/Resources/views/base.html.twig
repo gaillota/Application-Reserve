@@ -5,9 +5,9 @@
         <title>{% block title %}Application Réserve{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         {% block stylesheets %}
-            {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">#}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="{{ asset('cdn/bootstrap.min.css') }}"/>
+            {#<link rel="stylesheet" href="{{ asset('cdn/bootstrap.min.css') }}"/>#}
             {% stylesheets
             'less/layout.less'
             'less/form.less'
@@ -20,15 +20,38 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
     </head>
-    <body style="padding-bottom: 20px;;">
-    {% block navbar %}
+    <body style="padding-bottom: 20px;">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            {% include '::nav.html.twig' %}
+            {% block navbar %}
+                {% include '::nav.html.twig' %}
+            {% endblock %}
         {% endif %}
-    {% endblock %}
         <div class="container">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% block flashbag %}
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ flash|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endblock %}
+
+                <ol class="breadcrumb">
+                    {% block breadcrumb %}
+                        <li><a href="{{ path('home') }}">{{ fa('home') }}</a></li>
+                    {% endblock %}
+                </ol>
+            {% endif %}
+
             {% block body %}{% endblock %}
-            <footer class="text-center" style="margin-top: 10px;">Copyright @ Antoine Gaillot</footer>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <footer class="text-center" style="margin-top: 10px;">Copyright @ Antoine Gaillot</footer>
+            {% endif %}
         </div>
         {% block javascripts %}
             {#<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>#}
@@ -41,6 +64,13 @@
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <script type="text/javascript">
+                $(function() {
+                    window.setTimeout(function() {
+                        $(".alert-dismissible").alert('close');
+                    }, 5000);
+                });
+            </script>
         {% endblock %}
     </body>
 </html>

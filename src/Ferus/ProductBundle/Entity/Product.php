@@ -72,7 +72,8 @@ class Product
 
     public function __construct()
     {
-        $this->setQuantity(0);
+        $this->quantity = 0;
+        $this->price = '1000';
     }
 
 
@@ -136,8 +137,7 @@ class Product
      */
     public function getTaxes()
     {
-        if($this->taxes == null) return null;
-        return $this->taxes / 100;
+        return null == $this->taxes ? null : $this->taxes / 100;
     }
 
     /**

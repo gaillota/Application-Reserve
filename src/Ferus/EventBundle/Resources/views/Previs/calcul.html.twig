@@ -1,0 +1,79 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_previs') }}">Prévis</a></li>
+    <li class="active">Liste de courses</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><i class="fa fa-list"></i> {{ previs.name }} <small>Liste des courses</small></h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+            <a class="btn btn-default btn-xs" href="{{ path('ferus_previs_show', { 'id': previs.id }) }}" style="margin-bottom: 10px;">
+                <i class="fa fa-arrow-left"></i> Retour au prévis
+            </a>
+            <a href="{{ path('ferus_product_add', {previs:previs.id}) }}" class="btn btn-success btn-xs pull-right">
+                Retour de Métro <i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Informations liste des courses
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <u>Nombre de produits</u> : <strong>{{ previs.previsProducts|length }}</strong> article{% if previs.previsProducts|length > 1 %}s{% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        <u>Coûts des achats</u> : <strong>{{ coutHT }} €</strong> Hors Taxes, <strong>{{ coutTTC }} €</strong> Toutes Taxes Comprises ( <i class="fa fa-exclamation-circle"></i> sans taxe alcool fort)
+                    </li>
+                    <li class="list-group-item">
+                        <a class="btn btn-xs btn-danger" href="{{ path('ferus_previs_pdf', { 'id': previs.id }) }}">
+                            <i class="fa fa-download"></i> Télécharger PDF
+                        </a>
+                        <a class="btn btn-xs btn-warning" href="{{ path('ferus_previs_self_mail', { 'id': previs.id }) }}">
+                            <i class="fa fa-envelope"></i> Envoyer par e-mail (moi uniquement)
+                        </a>
+                        <a class="btn btn-xs btn-success" href="{{ path('ferus_previs_all_mail', { 'id': previs.id }) }}">
+                            <i class="fa fa-envelope"></i> Envoyer par e-mail (tous les réservistes)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 div-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+            <table class="table table-hover text-center">
+                <tr>
+                    <th>Produit</th>
+                    <th>Prévis</th>
+                    <th>Réserve</th>
+                    <th></th>
+                    <th>A acheter</th>
+                </tr>
+            {% for product in previs.previsProducts %}
+                <tr>
+                    <td>{{ product.product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.product.quantity }}</td>
+                    <td><i class="fa fa-arrow-right"></i></td>
+                    <td>
+                        {% set toBuy = product.quantity - product.product.quantity %}
+                        {% if toBuy <= 0 %}
+                            Rien à acheter
+                        {% else %}
+                            {{ toBuy }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -4,12 +4,15 @@ namespace Ferus\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
  *
  * @ORM\Table(name="ferus_reserve_user")
+ * @UniqueEntity("email")
+ * @UniqueEntity("username")
  * @ORM\Entity(repositoryClass="Ferus\UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -26,7 +29,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=100)
+     * @ORM\Column(name="first_name", type="string", length=100, nullable=true)
      * @Assert\NotBlank()
      */
     private $firstName;
@@ -34,7 +37,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\NotBlank()
      */
     private $lastName;

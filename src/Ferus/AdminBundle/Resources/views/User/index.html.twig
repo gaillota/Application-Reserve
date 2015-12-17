@@ -1,0 +1,85 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_admin') }}">Administration</a></li>
+    <li class="active">Gestion des utilisateurs</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="margin-bottom: 20px;">
+                <i class="fa fa-users"></i> Liste des utilisateurs
+                <a class="btn btn-success btn-xs pull-right" href="{{ path('ferus_admin_user_add') }}">
+                    <i class="fa fa-user-plus"></i> Ajouter
+                </a>
+            </h2>
+            <div class="table-responsive margin20">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>E-mail</th>
+                        <th>Chien de la casse</th>
+                        <th>Dernière co.</th>
+                        <th class="text-center">Notifié</th>
+                        <th>Droits</th>
+                        <th class="text-center">Status</th>
+                        <th></th>
+                    </tr>
+                    {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.firstName }} {{ user.lastName }}</td>
+                                <td>
+                                    {% if user.lastLogin is not null %}
+                                        {{ user.lastLogin|date('d-m-Y \à H:i') }}
+                                    {% else %}
+                                        Jamais connecté.
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if user.notified %}
+                                        <span class="label label-success">
+                                            {{ fa('check') }}
+                                        </span>
+                                    {% else %}
+                                        <span class="label label-danger">
+                                            {{ fa('times') }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>{% for role in user.roles %}<span class="label label-info">{{ role }}</span> {% endfor %}</td>
+                                <td class="text-center">
+                                    {% if user.locked %}
+                                        <span class="label label-danger">
+                                            {{ fa('times') }} Banni
+                                        </span>
+                                    {% else %}
+                                        {% if user.enabled %}
+                                            <span class="label label-success">
+                                                {{ fa('check') }} Activé
+                                            </span>
+                                        {% else %}
+                                            <span class="label label-default">
+                                                {{ fa('clock-o') }} En attente
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning btn-xs"
+                                       href="{{ path('ferus_admin_user_edit', { id: user.id }) }}"><i class="fa fa-edit"></i> Editer</a>
+                                        <a class="btn btn-danger btn-xs"
+                                           href="{{ path('ferus_admin_user_remove', { id: user.id }) }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

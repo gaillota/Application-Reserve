@@ -7,8 +7,8 @@ $(function(){
             var $this = $(this);
             $this.data('index', $this.data('index')+1);
             var prototype = $this.data('prototype').replace(/__name__/g, $this.data('index'));
-            var productSelect = $(prototype).find('select#ferus_productbundle_previs_previs_products_'+$this.data('index')+'_product').addClass('form-control').wrap('<p>').parent().html();
-            var quantityInput = $(prototype).find('input#ferus_productbundle_previs_previs_products_'+$this.data('index')+'_quantity').addClass('form-control').wrap('<p>').parent().html();
+            var productSelect = $(prototype).find('select#ferus_eventbundle_previs_previs_products_'+$this.data('index')+'_product').addClass('form-control').wrap('<p>').parent().html();
+            var quantityInput = $(prototype).find('input#ferus_eventbundle_previs_previs_products_'+$this.data('index')+'_quantity').addClass('form-control').wrap('<p>').parent().html();
 
             //var html = $this.data('prototype').replace(/__name__/g, $this.data('index'));
 

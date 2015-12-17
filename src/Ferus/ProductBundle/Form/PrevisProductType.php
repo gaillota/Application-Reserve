@@ -35,7 +35,7 @@ class PrevisProductType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ferus\ProductBundle\Entity\PrevisProduct'
+            'data_class' => 'Ferus\EventBundle\Entity\PrevisProduct'
         ));
     }
 
@@ -44,6 +44,6 @@ class PrevisProductType extends AbstractType
      */
     public function getName()
     {
-        return 'ferus_productbundle_previsproducts';
+        return 'ferus_eventbundle_previsproducts';
     }
 }

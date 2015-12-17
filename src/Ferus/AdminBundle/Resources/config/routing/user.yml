@@ -1,0 +1,19 @@
+ferus_admin_user:
+    path: /
+    defaults: { _controller: FerusAdminBundle:User:index }
+
+ferus_admin_user_add:
+    path: /add
+    defaults: { _controller: FerusAdminBundle:User:add }
+
+ferus_admin_user_edit:
+    path: /{id}/edit
+    defaults: { _controller: FerusAdminBundle:User:edit }
+    requirements:
+        id: \d+
+
+ferus_admin_user_remove:
+    path: /{id}/remove
+    defaults: { _controller: FerusAdminBundle:User:remove }
+    requirements:
+        id: \d+

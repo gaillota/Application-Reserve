@@ -16,7 +16,10 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'attr' => array(
+                    'autofocus' => true
+                )
             ))
             ->add('save', 'submit', array(
                 'label' => 'Enregistrer'

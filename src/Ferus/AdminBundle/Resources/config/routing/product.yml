@@ -1,0 +1,4 @@
+ferus_admin_product_list:
+    path: /
+    defaults:
+        _controller: FerusAdminBundle:Product:list

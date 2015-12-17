@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('ferus_category') }}">Catégories</a></li>
+    <li class="active">Modifier une catégorie</li>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-xs-12 text-center">

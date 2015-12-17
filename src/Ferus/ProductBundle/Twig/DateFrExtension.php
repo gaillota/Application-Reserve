@@ -24,6 +24,6 @@ class DateFrExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'fate_fr_extension';
+        return 'date_fr_extension';
     }
 } 

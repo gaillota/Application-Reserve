@@ -2,7 +2,12 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block h1_title %}<i class="fa fa-user"></i> Mon compte{% endblock %}
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Profil</li>
+{% endblock %}
+
+{% block h1_title %}<i class="fa fa-user"></i> Mon Profil{% endblock %}
 
 {% block user_bundle_content  %}
     <div class="row">

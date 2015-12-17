@@ -2,6 +2,12 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+    <li class="active">Modifier mon profil</li>
+{% endblock %}
+
 {% block h1_title %}
     <i class="fa fa-edit"></i> Modifier mon compte{% endblock %}
 

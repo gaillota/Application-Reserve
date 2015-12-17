@@ -1,7 +1,3 @@
-ferus_user_admin:
-    resource: "routing/admin.yml"
-    prefix: /admin/users
-
 ferus_user_profile_edit:
     path: /profile/edit
     defaults: { _controller: FerusUserBundle:Profile:edit }

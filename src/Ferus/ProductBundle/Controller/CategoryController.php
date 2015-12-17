@@ -3,7 +3,7 @@
 namespace Ferus\ProductBundle\Controller;
 
 use Ferus\ProductBundle\Entity\Category;
-use Ferus\ProductBundle\Entity\Historical;
+use Ferus\AdminBundle\Entity\Historical;
 use Ferus\ProductBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,15 +37,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @Template
      */
     public function newAction()
     {
-        $categoryName = $this->request->query->get('name', null);
-        $route = $this->request->query->get('route', null);
+        $category = new Category;
+        $form = $this->createForm(new CategoryType, $category);
 
-        if (null !== $categoryName && !empty($categoryName)) {
-            $category = new Category($categoryName);
+        $form->handleRequest($this->request);
+
+        if ($form->isValid()) {
             $this->em->persist($category);
 
             $historical = new Historical();
@@ -55,13 +57,13 @@ class CategoryController extends Controller
             $this->em->persist($historical);
 
             $this->em->flush();
+
+            return $this->redirectToRoute('ferus_category');
         }
 
-        if (null != $route && $this->container->get('router')->getRouteCollection->get($route)) {
-            return $this->redirectToRoute($route);
-        }
-
-        return $this->redirectToRoute('ferus_category');
+        return array(
+            'form' => $form->createView()
+        );
     }
 
     /**

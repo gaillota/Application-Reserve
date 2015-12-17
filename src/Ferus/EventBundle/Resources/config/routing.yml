@@ -1,0 +1,8 @@
+ferus_ProductBundle_category:
+    resource: "@FerusEventBundle/Resources/config/routing/event.yml"
+    prefix:   /events
+
+ferus_ProductBundle_previs:
+    resource: "@FerusEventBundle/Resources/config/routing/previs.yml"
+    prefix:   /previs
+
